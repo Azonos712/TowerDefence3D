@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,23 +12,27 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        //Вычисляем направление движения противника
         Vector3 dir = target.position - transform.position;
+        //Приводим вектор направления к нормализованному, чтобы не было разных скоростей
+        //Далее перемножаем этот вектор на скорость и разность времени между кадрами
+        //И перемещаем в мировых координатах при помощи вызванного метода
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 
+        //Проверка дистанции между текущей позицией и конечной точкой
         if (Vector3.Distance(transform.position, target.position) <= 0.4)
         {
-            GetNextWayPoint();
+            GetNextTarget();
         }
     }
 
-    void GetNextWayPoint()
+    void GetNextTarget()
     {
         if (wayPointIndex >= Waypoints.points.Length - 1)
         {
             Destroy(gameObject);
             return;
         }
-        wayPointIndex++;
-        target = Waypoints.points[wayPointIndex];
+        target = Waypoints.points[++wayPointIndex];
     }
 }
