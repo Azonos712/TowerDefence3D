@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 
         //Проверка дистанции между текущей позицией и конечной точкой
-        if (Vector3.Distance(transform.position, target.position) <= 0.4)
+        if (Vector3.Distance(transform.position, target.position) <= 0.3)
         {
             GetNextTarget();
         }
