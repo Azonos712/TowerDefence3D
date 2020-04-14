@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
         if (Vector3.Distance(transform.position, target.position) <= 0.3)
         {
             GetNextTarget();
+            RotateToTarget(dir.normalized, (target.position - transform.position).normalized);
         }
     }
 
@@ -34,5 +35,15 @@ public class Enemy : MonoBehaviour
             return;
         }
         target = Waypoints.points[++wayPointIndex];
+    }
+
+    void RotateToTarget(Vector3 prev, Vector3 next)
+    {
+        //Maybe remake
+        float angel = (Mathf.Round(prev.x) == 1 && Mathf.Round(next.z) == -1) ||
+                        (Mathf.Round(prev.x) == -1 && Mathf.Round(next.z) == 1) ||
+                        (Mathf.Round(prev.z) == 1 && Mathf.Round(next.x) == 1) ||
+                        (Mathf.Round(prev.z) == -1 && Mathf.Round(next.x) == -1) ? 90 : -90;
+        transform.Rotate(0, angel, 0, Space.World);
     }
 }

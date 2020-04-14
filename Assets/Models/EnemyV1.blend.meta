@@ -1,15 +1,18 @@
 fileFormatVersion: 2
-guid: e91a9559cd77b174c971c27163260c56
+guid: f4829740f57ed2f469d0b68a6cc39741
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: Rings
-    2100002: Wood
+    2100000: Secondary
+    2100002: Main
+    2100004: EngineNear
+    2100006: Engine
+    2100008: Glass
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Barrel
+    4300000: BarrelShip
   externalObjects: {}
   materials:
     importMaterials: 1
