@@ -7,10 +7,10 @@ public class Spawner : MonoBehaviour
 {
     public Transform enemyPrefab;
     public Transform spawnPoint;
-    public float timeBetweenWaves = 7;
     public Text nextWaveTimerText;
 
-    private float countDown = 3;
+    private float timeBetweenWaves = 9;
+    private float countDown = 4;
     private int waveIndex = 0;
 
     private void Update()
@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
         {
             SpawnEnemy();
             //Задержка перед созданием следующего противника, без зависания основного потока
-            yield return new WaitForSeconds(0.9f);
+            yield return new WaitForSeconds(1.2f);
         }
     }
 
