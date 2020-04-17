@@ -2,29 +2,27 @@
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 10;
-    private Transform target;
+    public float speed = 9;
+    private float turnSpeed = 6;
+
+    private Transform currentTarget;
+
     private int wayPointIndex = 0;
     void Start()
     {
-        target = Waypoints.points[wayPointIndex];
+        currentTarget = Waypoints.points[wayPointIndex];
     }
 
     void Update()
     {
-        //Вычисляем направление движения противника
-        Vector3 dir = target.position - transform.position;
-        //Приводим вектор направления к нормализованному, чтобы не было разных скоростей
-        //Далее перемножаем этот вектор на скорость и разность времени между кадрами
-        //И перемещаем в мировых координатах при помощи вызванного метода
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+        MoveToTarget();
 
         //Проверка дистанции между текущей позицией и конечной точкой
-        if (Vector3.Distance(transform.position, target.position) <= 0.3)
+        if (Vector3.Distance(transform.position, currentTarget.position) <= 0.4)
         {
             GetNextTarget();
-            RotateToTarget(dir.normalized, (target.position - transform.position).normalized);
         }
+        RotateToTarget();
     }
 
     void GetNextTarget()
@@ -34,16 +32,24 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        target = Waypoints.points[++wayPointIndex];
+        currentTarget = Waypoints.points[++wayPointIndex];
     }
 
-    void RotateToTarget(Vector3 prev, Vector3 next)
+    void MoveToTarget()
     {
-        //Maybe remake
-        float angel = (Mathf.Round(prev.x) == 1 && Mathf.Round(next.z) == -1) ||
-                        (Mathf.Round(prev.x) == -1 && Mathf.Round(next.z) == 1) ||
-                        (Mathf.Round(prev.z) == 1 && Mathf.Round(next.x) == 1) ||
-                        (Mathf.Round(prev.z) == -1 && Mathf.Round(next.x) == -1) ? 90 : -90;
-        transform.Rotate(0, angel, 0, Space.World);
+        //Вычисляем направление движения противника
+        Vector3 dir = currentTarget.position - transform.position;
+        //Приводим вектор направления к нормализованному, чтобы не было разных скоростей
+        //Далее перемножаем этот вектор на скорость и разность времени между кадрами
+        //И перемещаем в мировых координатах при помощи вызванного метода
+        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+    }
+
+    void RotateToTarget()
+    {
+        Vector3 dir = currentTarget.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;//lookRotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 }
