@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    [Header("Attributes")]
     public float range = 15f;
-    public string enemyTag = "Enemy";
+    public float turnSpeed = 6f;
+    public float fireRate = 1f; // выстрелов в 1 секунду
+    private float fireCountDown = 0f;
+    [Header("Unity Setup Fields")]
     public Transform partToRotate;
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public string enemyTag = "Enemy";
 
-    public float turnSpeed = 10f;
     private Transform target;
 
     // Start is called before the first frame update
@@ -20,9 +26,11 @@ public class Tower : MonoBehaviour
 
     void UpdateTarget()
     {
+        //Находим все объекты на карте под тегом
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         float shortestDistanse = Mathf.Infinity;
         GameObject nearestEnemy = null;
+        //Для каждого найденного противника находим дистанцию до текущей башни и сравниваем с самой короткой
         foreach (var enemy in enemies)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
@@ -33,6 +41,7 @@ public class Tower : MonoBehaviour
             }
         }
 
+        //Если противник найден и дистанция башни позволяет стрелять, захватываем цель
         if (nearestEnemy != null && shortestDistanse <= range)
         {
             target = nearestEnemy.transform;
@@ -49,11 +58,29 @@ public class Tower : MonoBehaviour
         if (target == null)
             return;
 
-        //Захват цели
+        //Поворот башни за захваченной целью
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;//lookRotation.eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+
+
+        if (fireCountDown <= 0f)
+        {
+            Shoot();
+            fireCountDown = 1f / fireRate;
+        }
+
+        fireCountDown -= Time.deltaTime;
+    }
+
+    void Shoot()
+    {
+        GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Bullet bullet = bulletGO.GetComponent<Bullet>();
+
+        if (bullet != null)
+            bullet.Seek(target);
     }
 
     private void OnDrawGizmosSelected()
