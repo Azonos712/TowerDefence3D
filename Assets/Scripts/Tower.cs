@@ -12,8 +12,9 @@ public class Tower : MonoBehaviour
     [Header("Unity Setup Fields")]
     public Transform partToRotate;
     public GameObject bulletPrefab;
+
     public Transform firePoint;
-    public string enemyTag = "Enemy";
+    public Transform helpFirePoint;
 
     private Transform target;
 
@@ -27,7 +28,7 @@ public class Tower : MonoBehaviour
     void UpdateTarget()
     {
         //Находим все объекты на карте под тегом
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         float shortestDistanse = Mathf.Infinity;
         GameObject nearestEnemy = null;
         //Для каждого найденного противника находим дистанцию до текущей башни и сравниваем с самой короткой
@@ -65,13 +66,28 @@ public class Tower : MonoBehaviour
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
 
-        if (fireCountDown <= 0f)
+        if (fireCountDown <= 0f && ReadyToShoot())
         {
             Shoot();
             fireCountDown = 1f / fireRate;
         }
 
         fireCountDown -= Time.deltaTime;
+    }
+
+    bool ReadyToShoot()
+    {
+        Vector3 dir1 = target.position - firePoint.position;
+        Vector3 dir2 = target.position - helpFirePoint.position;
+
+        if (Vector3.Angle(dir1, dir2) < 3)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     void Shoot()
