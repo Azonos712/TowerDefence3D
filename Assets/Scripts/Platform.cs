@@ -2,6 +2,7 @@
 
 public class Platform : MonoBehaviour
 {
+    //цвет выделения
     public Color emissionColor;
 
     private Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);
@@ -15,6 +16,7 @@ public class Platform : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        //Проверка попытки построить башню там где она уже есть
         if (installedTower != null)
         {
             Debug.Log("TODO: Display on screen!");
