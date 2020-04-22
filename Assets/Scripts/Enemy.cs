@@ -15,14 +15,13 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        MoveToTarget();
+        MoveAndRotateToTarget();
 
         //Проверка дистанции между текущей позицией и конечной точкой
         if (Vector3.Distance(transform.position, currentTarget.position) <= 0.4)
         {
             GetNextTarget();
         }
-        RotateToTarget();
     }
 
     void GetNextTarget()
@@ -35,21 +34,18 @@ public class Enemy : MonoBehaviour
         currentTarget = Waypoints.points[++wayPointIndex];
     }
 
-    void MoveToTarget()
+    void MoveAndRotateToTarget()
     {
         //Вычисляем направление движения противника
         Vector3 dir = currentTarget.position - transform.position;
+
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;//lookRotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+
         //Приводим вектор направления к нормализованному, чтобы не было разных скоростей
         //Далее перемножаем этот вектор на скорость и разность времени между кадрами
         //И перемещаем в мировых координатах при помощи вызванного метода
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
-    }
-
-    void RotateToTarget()
-    {
-        Vector3 dir = currentTarget.position - transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;//lookRotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 }

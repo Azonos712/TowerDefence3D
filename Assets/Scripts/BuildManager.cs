@@ -7,6 +7,8 @@ public class BuildManager : MonoBehaviour
 
     private void Awake()
     {
+        //Awake - вызывается до начала любых функций, а также сразу после инициализации префаба.
+        //создаётся только одна сущность данного класса
         if (instance != null)
         {
             Debug.LogError("More than one BuildManager in scene!");

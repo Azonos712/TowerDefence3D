@@ -58,13 +58,18 @@ public class Tower : MonoBehaviour
     {
         if (target == null)
             return;
-
-        //Поворот башни за захваченной целью
+        
+        //Плавный поворот башни за захваченной целью
+        //Вектор направления
         Vector3 dir = target.position - transform.position;
+        //Создает вращение с указанными направлениями вперед и вверх. В нашем случае направление вверх не используется.
+        //Кватернион это конечное вращение, которое получается из исходного положения
         Quaternion lookRotation = Quaternion.LookRotation(dir);
+        //Интерполирует между 1 и 2 по 3 параметрам и нормализует результат впоследствии и возвращает представление угла Эйлера для поворота.
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;//lookRotation.eulerAngles;
+        //Возвращает вращение, которое вращает z градусов вокруг оси z, x градусов вокруг оси x и y градусов вокруг оси y; применяется в этом порядке.
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
-
+        
 
         if (fireCountDown <= 0f && ReadyToShoot())
         {
