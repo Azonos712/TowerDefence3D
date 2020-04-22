@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
         //Отключение перемещения по клавише Esc
         if (Input.GetKeyDown(KeyCode.Escape))
             readyToMove = !readyToMove;
-
+        //Проверяем возмонжность двигать камеру
         if (!readyToMove)
             return;
 
