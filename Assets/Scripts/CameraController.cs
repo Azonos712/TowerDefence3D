@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        //Отключение перемещения по клавише Esc
         if (Input.GetKeyDown(KeyCode.Escape))
             readyToMove = !readyToMove;
 
