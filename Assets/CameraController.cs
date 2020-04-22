@@ -5,9 +5,17 @@ public class CameraController : MonoBehaviour
     public float speed = 30f;
     public float borderOffset = 10f;
 
+    private bool readyToMove = true;
+
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            readyToMove = !readyToMove;
+
+        if (!readyToMove)
+            return;
+
         //TODO: сцена и всё объекты развёрнуты по y на 90, поэтому небольшая путаница с направлениями
         if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - borderOffset)
         {
