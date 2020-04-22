@@ -6,13 +6,10 @@ public class CameraController : MonoBehaviour
     public float scrollSpeed = 5f;
     public float borderOffset = 10f;
 
-    public float minY = 10f;
-    public float maxY = 85f;
-
+    private float minY = 10f;
+    private float maxY = 85f;
     private bool readyToMove = true;
 
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -39,11 +36,14 @@ public class CameraController : MonoBehaviour
             transform.Translate(Vector3.back * speed * Time.deltaTime, Space.World);
         }
 
-
+        //Находим значение колёсика мышки
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         Vector3 pos = transform.position;
+        //Расчитываем изменения высоты при помощи скорости и фактора
         pos.y -= scroll * 1000 * scrollSpeed * Time.deltaTime;
+        //Ограничиваем значения y
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
+        //Применяем высоту
         transform.position = pos;
     }
 }
