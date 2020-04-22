@@ -3,9 +3,14 @@
 public class CameraController : MonoBehaviour
 {
     public float speed = 30f;
+    public float scrollSpeed = 5f;
     public float borderOffset = 10f;
 
+    public float minY = 10f;
+    public float maxY = 85f;
+
     private bool readyToMove = true;
+
 
     // Update is called once per frame
     void Update()
@@ -33,5 +38,12 @@ public class CameraController : MonoBehaviour
         {
             transform.Translate(Vector3.back * speed * Time.deltaTime, Space.World);
         }
+
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        Vector3 pos = transform.position;
+        pos.y -= scroll * 1000 * scrollSpeed * Time.deltaTime;
+        pos.y = Mathf.Clamp(pos.y, minY, maxY);
+        transform.position = pos;
     }
 }
