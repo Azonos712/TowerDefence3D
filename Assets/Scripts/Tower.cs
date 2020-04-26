@@ -17,6 +17,9 @@ public class Tower : MonoBehaviour
     public Transform helpFirePoint;
 
     private Transform target;
+    private bool afterShoot = false;
+    private bool moveBack = true;
+    private Vector3 startHelpFirePoint;
 
     // Start is called before the first frame update
     void Start()
@@ -56,9 +59,29 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (afterShoot)
+            RecoilAfterShoot();
+
+        fireCountDown -= Time.deltaTime;
+
+        //Если нет цели - не поворачиваемся и не стреляем
         if (target == null)
             return;
-        
+
+        TowerRotate();
+
+        if (fireCountDown <= 0f && ReadyToShoot())
+        {
+            Shoot();
+            InitializedBeforeRecoil();
+            fireCountDown = 1f / fireRate;
+        }
+
+
+    }
+
+    void TowerRotate()
+    {
         //Плавный поворот башни за захваченной целью
         //Вектор направления
         Vector3 dir = target.position - transform.position;
@@ -69,15 +92,6 @@ public class Tower : MonoBehaviour
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;//lookRotation.eulerAngles;
         //Возвращает вращение, которое вращает z градусов вокруг оси z, x градусов вокруг оси x и y градусов вокруг оси y; применяется в этом порядке.
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
-        
-
-        if (fireCountDown <= 0f && ReadyToShoot())
-        {
-            Shoot();
-            fireCountDown = 1f / fireRate;
-        }
-
-        fireCountDown -= Time.deltaTime;
     }
 
     bool ReadyToShoot()
@@ -85,7 +99,7 @@ public class Tower : MonoBehaviour
         Vector3 dir1 = target.position - firePoint.position;
         Vector3 dir2 = target.position - helpFirePoint.position;
 
-        if (Vector3.Angle(dir1, dir2) < 3)
+        if (Vector3.Angle(dir1, dir2) < 4)
         {
             return true;
         }
@@ -102,6 +116,38 @@ public class Tower : MonoBehaviour
 
         if (bullet != null)
             bullet.Seek(target);
+    }
+
+    void InitializedBeforeRecoil()
+    {
+        afterShoot = true;
+        moveBack = true;
+        startHelpFirePoint = helpFirePoint.localPosition;
+    }
+
+    void RecoilAfterShoot()
+    {
+        var dist = Vector3.Distance(startHelpFirePoint, helpFirePoint.localPosition);
+
+        if (moveBack == true)
+        {
+            if (dist >= 0.4)
+            {
+                moveBack = false;
+                return;
+            }
+            helpFirePoint.Translate(Vector3.forward * 4 * Time.deltaTime, Space.Self);
+        }
+        else
+        {
+            if (dist <= 0.1)
+            {
+                afterShoot = false;
+                helpFirePoint.localPosition = startHelpFirePoint;
+                return;
+            }
+            helpFirePoint.Translate(Vector3.back * 1 * Time.deltaTime, Space.Self);
+        }
     }
 
     private void OnDrawGizmosSelected()
