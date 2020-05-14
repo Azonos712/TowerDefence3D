@@ -2,16 +2,18 @@
 
 public class BuildManager : MonoBehaviour
 {
+    //создаётся только одна сущность данного класса
     //Singleton
     public static BuildManager instance;
 
     public GameObject standartTowerPrefab;
+    public GameObject anotherTowerPrefab;
+
     private GameObject towerToBuild;
 
     private void Awake()
     {
         //Awake - вызывается до начала любых функций, а также сразу после инициализации префаба.
-        //создаётся только одна сущность данного класса
         if (instance != null)
         {
             Debug.LogError("More than one BuildManager in scene!");
@@ -20,13 +22,13 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
-    {
-        towerToBuild = standartTowerPrefab;
-    }
-
     public GameObject GetTowerToBuild()
     {
         return towerToBuild;
+    }
+
+    public void SetTowerToBuild(GameObject tower)
+    {
+        towerToBuild = tower;
     }
 }

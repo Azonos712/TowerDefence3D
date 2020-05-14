@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Platform : MonoBehaviour
 {
@@ -9,13 +10,23 @@ public class Platform : MonoBehaviour
     private GameObject installedTower;
     private Renderer r;
     private Color startColor;
+    BuildManager buildManager;
     private void Start()
     {
         r = GetComponent<Renderer>();
         startColor = r.material.color;
+        buildManager = BuildManager.instance;
     }
+
     private void OnMouseDown()
     {
+        //указатель на систему событий (что бы при нажатии на кнопку ничего не происходило на поле)
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        if (buildManager.GetTowerToBuild() == null)
+            return;
+
         //Проверка попытки построить башню там где она уже есть
         if (installedTower != null)
         {
@@ -30,6 +41,13 @@ public class Platform : MonoBehaviour
     }
     private void OnMouseEnter()
     {
+        //указатель на систему событий (что бы при нажатии на кнопку ничего не происходило на поле)
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        if (buildManager.GetTowerToBuild() == null)
+            return;
+
         r.material.color = emissionColor;
     }
     private void OnMouseExit()
