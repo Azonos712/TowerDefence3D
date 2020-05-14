@@ -12,16 +12,15 @@ public class Tower : MonoBehaviour
     [Header("Unity Setup Fields")]
     public Transform partToRotate;
     public GameObject bulletPrefab;
-
     public Transform firePoint;
     public Transform helpFirePoint;
 
-    private Transform target;
-    private bool afterShoot = false;
+    private Transform targetForShooting;
+    private bool shotFired = false;
     private bool moveBack = true;
     private Vector3 startHelpFirePoint;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         //Запускаем метод с повторением в полсекунды сразу же при вызове Start()
@@ -48,24 +47,24 @@ public class Tower : MonoBehaviour
         //Если противник найден и дистанция башни позволяет стрелять, захватываем цель
         if (nearestEnemy != null && shortestDistanse <= range)
         {
-            target = nearestEnemy.transform;
+            targetForShooting = nearestEnemy.transform;
         }
         else
         {
-            target = null;
+            targetForShooting = null;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (afterShoot)
+        if (shotFired)
             RecoilAfterShoot();
 
         fireCountDown -= Time.deltaTime;
 
         //Если нет цели - не поворачиваемся и не стреляем
-        if (target == null)
+        if (targetForShooting == null)
             return;
 
         TowerRotate();
@@ -76,15 +75,13 @@ public class Tower : MonoBehaviour
             InitializedBeforeRecoil();
             fireCountDown = 1f / fireRate;
         }
-
-
     }
 
     void TowerRotate()
     {
         //Плавный поворот башни за захваченной целью
         //Вектор направления
-        Vector3 dir = target.position - transform.position;
+        Vector3 dir = targetForShooting.position - transform.position;
         //Создает вращение с указанными направлениями вперед и вверх. В нашем случае направление вверх не используется.
         //Кватернион это конечное вращение, которое получается из исходного положения
         Quaternion lookRotation = Quaternion.LookRotation(dir);
@@ -96,8 +93,8 @@ public class Tower : MonoBehaviour
 
     bool ReadyToShoot()
     {
-        Vector3 dir1 = target.position - firePoint.position;
-        Vector3 dir2 = target.position - helpFirePoint.position;
+        Vector3 dir1 = targetForShooting.position - firePoint.position;
+        Vector3 dir2 = targetForShooting.position - helpFirePoint.position;
 
         if (Vector3.Angle(dir1, dir2) < 4)
         {
@@ -115,12 +112,12 @@ public class Tower : MonoBehaviour
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
         if (bullet != null)
-            bullet.Seek(target);
+            bullet.Seek(targetForShooting);
     }
 
     void InitializedBeforeRecoil()
     {
-        afterShoot = true;
+        shotFired = true;
         moveBack = true;
         startHelpFirePoint = helpFirePoint.localPosition;
     }
@@ -142,7 +139,7 @@ public class Tower : MonoBehaviour
         {
             if (dist <= 0.1)
             {
-                afterShoot = false;
+                shotFired = false;
                 helpFirePoint.localPosition = startHelpFirePoint;
                 return;
             }

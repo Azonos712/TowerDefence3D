@@ -23,8 +23,9 @@ public class Platform : MonoBehaviour
             return;
         }
 
-        //Строим башню
+        //Получаем башню из класса управления строительством
         GameObject towerToBuild = BuildManager.instance.GetTowerToBuild();
+        //Создаём башню на данной платформе
         installedTower = Instantiate(towerToBuild, transform.position + positionOffset, transform.rotation);
     }
     private void OnMouseEnter()

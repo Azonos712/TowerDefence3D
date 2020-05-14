@@ -2,10 +2,11 @@
 
 public class Waypoints : MonoBehaviour
 {
-    //массив с путевыми точками
+    //создание массива с путевыми точками
     public static Transform[] points;
 
-    //при старте получаем все путевые точки и сохраняем их в массив
+    //в самом начале (данный метод вызывается перед Start) получаем все путевые точки и сохраняем их в массив
+    //по-сути кэшируем данные
     private void Awake()
     {
         points = new Transform[transform.childCount];
