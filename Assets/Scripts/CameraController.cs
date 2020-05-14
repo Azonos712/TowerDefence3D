@@ -2,6 +2,7 @@
 
 public class CameraController : MonoBehaviour
 {
+    [Header("Attributes")]
     public float speed = 30f;
     public float scrollSpeed = 5f;
     public float borderOffset = 10f;
@@ -19,7 +20,6 @@ public class CameraController : MonoBehaviour
         if (!readyToMove)
             return;
 
-        //TODO: сцена и всё объекты развёрнуты по y на 90, поэтому небольшая путаница с направлениями
         if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - borderOffset)
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.World);
@@ -39,12 +39,12 @@ public class CameraController : MonoBehaviour
 
         //Находим значение колёсика мышки
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        Vector3 pos = transform.position;
+        Vector3 currentPosition = transform.position;
         //Расчитываем изменения высоты при помощи скорости и фактора
-        pos.y -= scroll * 1000 * scrollSpeed * Time.deltaTime;
+        currentPosition.y -= scroll * 1000 * scrollSpeed * Time.deltaTime;
         //Ограничиваем значения y
-        pos.y = Mathf.Clamp(pos.y, minY, maxY);
+        currentPosition.y = Mathf.Clamp(currentPosition.y, minY, maxY);
         //Применяем высоту
-        transform.position = pos;
+        transform.position = currentPosition;
     }
 }

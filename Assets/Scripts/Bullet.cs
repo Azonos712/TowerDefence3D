@@ -2,7 +2,9 @@
 
 public class Bullet : MonoBehaviour
 {
+    [Header("Attributes")]
     public float speed = 70f;
+    [Header("Unity Setup Fields")]
     public GameObject impactEffect;
     private Transform target;
 
@@ -11,7 +13,6 @@ public class Bullet : MonoBehaviour
         target = _target;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (target == null)
@@ -41,7 +42,6 @@ public class Bullet : MonoBehaviour
         GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectIns, 2f);
         Destroy(target.gameObject);
-        //Destroy(gameObject);
         target = null;
     }
 }

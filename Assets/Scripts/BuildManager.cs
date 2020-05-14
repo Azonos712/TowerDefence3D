@@ -5,6 +5,9 @@ public class BuildManager : MonoBehaviour
     //Singleton
     public static BuildManager instance;
 
+    public GameObject standartTowerPrefab;
+    private GameObject towerToBuild;
+
     private void Awake()
     {
         //Awake - вызывается до начала любых функций, а также сразу после инициализации префаба.
@@ -17,14 +20,10 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    public GameObject standartTowerPrefab;
-
     private void Start()
     {
         towerToBuild = standartTowerPrefab;
     }
-
-    private GameObject towerToBuild;
 
     public GameObject GetTowerToBuild()
     {

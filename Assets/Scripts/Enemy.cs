@@ -2,11 +2,11 @@
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Attributes")]
     public float speed = 9;
     private float turnSpeed = 6;
-
+    
     private Transform currentTarget;
-
     private int wayPointIndex = 0;
     void Start()
     {
@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
 
     void MoveAndRotateToTarget()
     {
-        //Вычисляем направление движения противника
+        //Вычисляем направление движения противника к текущей цели
         Vector3 dir = currentTarget.position - transform.position;
 
         Quaternion lookRotation = Quaternion.LookRotation(dir);

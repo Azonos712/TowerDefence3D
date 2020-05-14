@@ -4,8 +4,10 @@ using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
+    [Header("Setup Fields")]
     public Transform enemyPrefab;
     public Transform spawnPoint;
+    //Надпись отсчёта времени между волнами
     public Text nextWaveTimerText;
 
     private float timeBetweenWaves = 10;
