@@ -23,8 +23,8 @@ public class Tower : MonoBehaviour
 
     void Start()
     {
-        //Запускаем метод с повторением в полсекунды сразу же при вызове Start()
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        //Запускаем метод с повторением в секунду сразу же при вызове Start()
+        InvokeRepeating("UpdateTarget", 0f, 1f);
     }
 
     void UpdateTarget()
@@ -96,7 +96,7 @@ public class Tower : MonoBehaviour
         Vector3 dir1 = targetForShooting.position - firePoint.position;
         Vector3 dir2 = targetForShooting.position - helpFirePoint.position;
 
-        if (Vector3.Angle(dir1, dir2) < 4)
+        if (Vector3.Angle(dir1.normalized, dir2.normalized) <= 7)
         {
             return true;
         }

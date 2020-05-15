@@ -7,7 +7,7 @@ public class BuildManager : MonoBehaviour
     public static BuildManager instance;
 
     public GameObject standartTowerPrefab;
-    public GameObject anotherTowerPrefab;
+    public GameObject missileLauncherPrefab;
 
     private GameObject towerToBuild;
 
