@@ -2,8 +2,7 @@
 
 public class BuildManager : MonoBehaviour
 {
-    //создаётся только одна сущность данного класса
-    //Singleton
+    //создаётся только одна сущность данного класса-Singleton
     public static BuildManager instance;
 
     public GameObject standartTowerPrefab;
