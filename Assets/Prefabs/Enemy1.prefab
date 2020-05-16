@@ -97,6 +97,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   turnSpeed: 6
+  health: 100
+  reward: 50
+  deathEffect: {fileID: 5995848813553997163, guid: 172ecc7cf189a9c43ae767d8878db124,
+    type: 3}
 --- !u!65 &65676895752083066
 BoxCollider:
   m_ObjectHideFlags: 0

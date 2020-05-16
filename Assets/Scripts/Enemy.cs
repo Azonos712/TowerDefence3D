@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Security.Cryptography;
+using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Enemy : MonoBehaviour
     public float turnSpeed = 6;
     public int health = 100;
     public int reward = 50;
+    public GameObject deathEffect;
     
     private Transform currentTarget;
     private int wayPointIndex = 0;
@@ -39,6 +41,10 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         PlayerStats.Money += reward;
+
+        GameObject e = Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(e, 3f);
+
         Destroy(gameObject);
     }
 
@@ -55,6 +61,7 @@ public class Enemy : MonoBehaviour
     void EndPath()
     {
         PlayerStats.Lives--;
+
         Destroy(gameObject);
     }
 
