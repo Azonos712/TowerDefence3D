@@ -59,7 +59,7 @@ public class Bullet : MonoBehaviour
 
     void Explode()
     {
-        //получаем список объектов задетых сферой
+        //получаем список объектов задетых сферой c заданным радиусом
         Collider[] hitObjects = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (var obj in hitObjects)
         {
