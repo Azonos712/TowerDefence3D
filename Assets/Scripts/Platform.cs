@@ -5,6 +5,7 @@ public class Platform : MonoBehaviour
 {
     //цвет выделения
     public Color emissionColor;
+    public Color notEnoughMoneyColor;
     [Header("Optional")]
     public GameObject installedTower;
 
@@ -50,8 +51,11 @@ public class Platform : MonoBehaviour
 
         if (!buildManager.CanBuild)
             return;
-
-        r.material.color = emissionColor;
+        //TODO: при наведении на платформу с башней
+        if (buildManager.HasMoney)
+            r.material.color = emissionColor;
+        else
+            r.material.color = notEnoughMoneyColor;
     }
     private void OnMouseExit()
     {

@@ -105,7 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f922ad86eb94ff5449fcf1f1a652cf59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emissionColor: {r: 0.56480086, g: 0.9245283, b: 0, a: 0}
+  emissionColor: {r: 0.5883232, g: 0.8867924, b: 0.12130654, a: 0}
+  notEnoughMoneyColor: {r: 0.8773585, g: 0.13656996, b: 0.13656996, a: 0}
+  installedTower: {fileID: 0}
 --- !u!1 &8278446742091426933
 GameObject:
   m_ObjectHideFlags: 0

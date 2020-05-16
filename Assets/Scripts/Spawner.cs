@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
     //Надпись отсчёта времени между волнами
     public Text nextWaveTimerText;
 
-    private float timeBetweenWaves = 10;
+    private float timeBetweenWaves = 15;
     //отсчёт для следующей волны
     private float countDown = 3;
     private int waveIndex = 0;
@@ -28,7 +28,9 @@ public class Spawner : MonoBehaviour
         }
         //Отсчёт каждой секунды
         countDown -= Time.deltaTime;
-        nextWaveTimerText.text = Mathf.Round(countDown).ToString();
+        countDown = Mathf.Clamp(countDown, 0, Mathf.Infinity);
+        string txt = "Next wave in " + string.Format("{0:00.00}", countDown);
+        nextWaveTimerText.text = txt;
     }
 
     IEnumerator Spawn()
