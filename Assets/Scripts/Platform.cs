@@ -5,18 +5,23 @@ public class Platform : MonoBehaviour
 {
     //цвет выделения
     public Color emissionColor;
+    [Header("Optional")]
+    public GameObject installedTower;
 
-    private Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);
-    private GameObject installedTower;
+    private Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);     
     private Renderer r;
     private Color startColor;
-
-    BuildManager buildManager;
+    private BuildManager buildManager;
     private void Start()
     {
         r = GetComponent<Renderer>();
         startColor = r.material.color;
         buildManager = BuildManager.instance;
+    }
+
+    public Vector3 GetBuildPosition()
+    {
+        return transform.position + positionOffset;
     }
 
     private void OnMouseDown()
@@ -25,7 +30,7 @@ public class Platform : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (buildManager.GetTowerToBuild() == null)
+        if (!buildManager.CanBuild)
             return;
 
         //Проверка попытки построить башню там где она уже есть
@@ -35,10 +40,7 @@ public class Platform : MonoBehaviour
             return;
         }
 
-        //Получаем башню из класса управления строительством
-        GameObject towerToBuild = BuildManager.instance.GetTowerToBuild();
-        //Создаём башню на данной платформе
-        installedTower = Instantiate(towerToBuild, transform.position + positionOffset, transform.rotation);
+        buildManager.BuildTowerOn(this);              
     }
     private void OnMouseEnter()
     {
@@ -46,7 +48,7 @@ public class Platform : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (buildManager.GetTowerToBuild() == null)
+        if (!buildManager.CanBuild)
             return;
 
         r.material.color = emissionColor;

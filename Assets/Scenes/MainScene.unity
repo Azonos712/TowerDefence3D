@@ -2066,7 +2066,7 @@ PrefabInstance:
     - target: {fileID: 7764099479878148780, guid: 4ee3047f9c65b654f8a8ac08af9db846,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PurchaseMissileLauncher
+      value: SelectMissileLauncher
       objectReference: {fileID: 0}
     - target: {fileID: 7764099479878148780, guid: 4ee3047f9c65b654f8a8ac08af9db846,
         type: 3}
@@ -12434,6 +12434,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abfe46653ccc3264cb1366203b37b6ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standartTower:
+    prefab: {fileID: 8347533058131050393, guid: b08a53a8b21c2ce429721233622cf77d,
+      type: 3}
+    cost: 100
+  missileLauncher:
+    prefab: {fileID: 1936630736117137094, guid: c55d9bbeedabd3544861eea2d937bb3f,
+      type: 3}
+    cost: 250
 --- !u!1001 &1395537248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19318,7 +19326,7 @@ PrefabInstance:
     - target: {fileID: 7764099479878148780, guid: 4ee3047f9c65b654f8a8ac08af9db846,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PurchaseStandartTurret
+      value: SelectStandartTurret
       objectReference: {fileID: 0}
     - target: {fileID: 7764099479878148780, guid: 4ee3047f9c65b654f8a8ac08af9db846,
         type: 3}
