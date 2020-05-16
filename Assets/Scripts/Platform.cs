@@ -10,6 +10,7 @@ public class Platform : MonoBehaviour
     private GameObject installedTower;
     private Renderer r;
     private Color startColor;
+
     BuildManager buildManager;
     private void Start()
     {
