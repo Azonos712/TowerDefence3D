@@ -5,6 +5,8 @@ public class BuildManager : MonoBehaviour
     //создаётся только одна сущность данного класса-Singleton
     public static BuildManager instance;
 
+    public GameObject buildEffect;
+
     private TowerBlueprint towerToBuild;
 
     public bool CanBuild { get { return towerToBuild != null; } }
@@ -34,6 +36,9 @@ public class BuildManager : MonoBehaviour
         //Создаём башню на данной платформе
         GameObject tower = (GameObject)Instantiate(towerToBuild.prefab, platform.GetBuildPosition(), Quaternion.identity);
         platform.installedTower = tower;
+
+        GameObject effect = Instantiate(buildEffect, platform.GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 4f);
     }
 
     public void SelectTowerToBuild(TowerBlueprint tower)
