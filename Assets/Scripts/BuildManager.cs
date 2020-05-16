@@ -22,6 +22,14 @@ public class BuildManager : MonoBehaviour
 
     public void BuildTowerOn(Platform platform)
     {
+        if(PlayerStats.Money < towerToBuild.cost)
+        {
+            Debug.Log("Not enough money!");
+            return;
+        }
+
+        PlayerStats.Money -= towerToBuild.cost;
+
         //Создаём башню на данной платформе
         GameObject tower = (GameObject)Instantiate(towerToBuild.prefab, platform.GetBuildPosition(), Quaternion.identity);
         platform.installedTower = tower;
