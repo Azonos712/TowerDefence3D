@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   explosionRadius: 8
-  impactEffect: {fileID: 1125351378512971550, guid: ef4b3d37b53e6894380f4f1dc5a3217f,
+  impactEffect: {fileID: 1125351378512971550, guid: 125fe060dfe1dd84b9282c3b619fb76a,
     type: 3}
 --- !u!1001 &4065441471216788807
 PrefabInstance:
