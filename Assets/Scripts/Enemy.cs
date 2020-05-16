@@ -5,6 +5,8 @@ public class Enemy : MonoBehaviour
     [Header("Attributes")]
     public float speed = 9;
     public float turnSpeed = 6;
+    public int health = 100;
+    public int reward = 50;
     
     private Transform currentTarget;
     private int wayPointIndex = 0;
@@ -22,6 +24,22 @@ public class Enemy : MonoBehaviour
         {
             GetNextTarget();
         }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        PlayerStats.Money += reward;
+        Destroy(gameObject);
     }
 
     void GetNextTarget()
