@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
     //Надпись отсчёта времени между волнами
     public Text nextWaveTimerText;
 
-    private float timeBetweenWaves = 15;
+    private float timeBetweenWaves = 10;
     //отсчёт для следующей волны
     private float countDown = 3;
     private int waveIndex = 0;

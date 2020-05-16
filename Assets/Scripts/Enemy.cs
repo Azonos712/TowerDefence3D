@@ -4,7 +4,7 @@ public class Enemy : MonoBehaviour
 {
     [Header("Attributes")]
     public float speed = 9;
-    private float turnSpeed = 6;
+    public float turnSpeed = 6;
     
     private Transform currentTarget;
     private int wayPointIndex = 0;
@@ -28,10 +28,16 @@ public class Enemy : MonoBehaviour
     {
         if (wayPointIndex >= Waypoints.points.Length - 1)
         {
-            Destroy(gameObject);
+            EndPath();
             return;
         }
         currentTarget = Waypoints.points[++wayPointIndex];
+    }
+
+    void EndPath()
+    {
+        PlayerStats.Lives--;
+        Destroy(gameObject);
     }
 
     void MoveAndRotateToTarget()

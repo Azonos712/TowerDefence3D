@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  turnSpeed: 6
 --- !u!65 &65676895752083066
 BoxCollider:
   m_ObjectHideFlags: 0
