@@ -42,7 +42,7 @@ public class Tower : MonoBehaviour
         //Запускаем метод с повторением в секунду сразу же при вызове Start()
         InvokeRepeating("UpdateTarget", 0f, 1f);
         level = 1;
-       }
+    }
 
     void UpdateTarget()
     {

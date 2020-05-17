@@ -1706,16 +1706,19 @@ MonoBehaviour:
       type: 3}
     cost: 100
     upgradeCost: 200
+    sellCost: 50
   missileLauncher:
     prefab: {fileID: 1936630736117137094, guid: c55d9bbeedabd3544861eea2d937bb3f,
       type: 3}
     cost: 250
     upgradeCost: 400
+    sellCost: 100
   laserBeamer:
     prefab: {fileID: 4035156225757101527, guid: 7f0a8805f262ce843986f9b1f749aa3f,
       type: 3}
     cost: 350
     upgradeCost: 600
+    sellCost: 200
 --- !u!114 &148333176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3164,7 +3167,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 246942035}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 689164882}
+        m_MethodName: Sell
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &246942035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7829,7 +7843,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ui: {fileID: 442801601}
   upgradeCost: {fileID: 1805951972}
-  upgradButton: {fileID: 1405328548}
+  sellCost: {fileID: 453602765}
+  upgradeButton: {fileID: 1405328548}
 --- !u!1001 &691973640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19625,6 +19640,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildEffect: {fileID: 8063806059993570098, guid: 245cd2bec86ddd846bfaca0579a1a0b0,
+    type: 3}
+  sellEffect: {fileID: 5785204258478825442, guid: f0f72542bcc2ea842b8ba6ef397c8fe9,
     type: 3}
   platformUI: {fileID: 689164882}
 --- !u!114 &1801264079

@@ -83,6 +83,17 @@ public class Platform : MonoBehaviour
         Destroy(effect, 3f);
     }
 
+    public void SellTower()
+    {
+        PlayerStats.Money += towerBluePrint.sellCost;
+
+        GameObject effect = Instantiate(buildManager.sellEffect, this.GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 4f);
+
+        Destroy(installedTower);
+        towerBluePrint = null;
+    }
+
     private void OnMouseEnter()
     {
         //указатель на систему событий (что бы при нажатии на кнопку ничего не происходило на поле)
