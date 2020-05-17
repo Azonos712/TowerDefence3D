@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [Header("Attributes")]
+    [Header("General")]
     public float range = 15f;
     public float turnSpeed = 6f;
+    
+    [Header("Use Bullets (default)")]
     public float fireRate = 1f; // выстрелов в 1 секунду
     private float fireCountDown = 0f;
+    public GameObject bulletPrefab;
+
+    [Header("Use Laser")]
+    public bool useLaser = false;
+    public LineRenderer lineRenderer;
+
     [Header("Unity Setup Fields")]
     public Transform partToRotate;
-    public GameObject bulletPrefab;
     public Transform firePoint;
     public Transform helpFirePoint;
 
@@ -65,19 +72,33 @@ public class Tower : MonoBehaviour
 
         //Если нет цели - не поворачиваемся и не стреляем
         if (targetForShooting == null)
-            return;
-
-        TowerRotate();
-
-        if (fireCountDown <= 0f && ReadyToShoot())
         {
-            Shoot();
-            InitializedBeforeRecoil();
-            fireCountDown = 1f / fireRate;
+            if (useLaser)
+            {
+                if (lineRenderer.enabled)
+                    lineRenderer.enabled = false;
+            }
+            return;
+        }
+
+        LockOnTarget();
+
+        if (useLaser)
+        {
+            Laser();
+        }
+        else
+        {
+            if (fireCountDown <= 0f && ReadyToShoot())
+            {
+                Shoot();
+                InitializedBeforeRecoil();
+                fireCountDown = 1f / fireRate;
+            }
         }
     }
 
-    void TowerRotate()
+    void LockOnTarget()
     {
         //Плавный поворот башни за захваченной целью
         //Вектор направления
@@ -89,6 +110,15 @@ public class Tower : MonoBehaviour
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;//lookRotation.eulerAngles;
         //Возвращает вращение, которое вращает z градусов вокруг оси z, x градусов вокруг оси x и y градусов вокруг оси y; применяется в этом порядке.
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+    }
+
+    void Laser()
+    {
+        if (!lineRenderer.enabled)
+            lineRenderer.enabled = true;
+
+        lineRenderer.SetPosition(0, firePoint.position);
+        lineRenderer.SetPosition(1, targetForShooting.position);
     }
 
     bool ReadyToShoot()
