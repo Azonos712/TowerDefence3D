@@ -6,10 +6,13 @@ public class Platform : MonoBehaviour
     //цвет выделения
     public Color emissionColor;
     public Color notEnoughMoneyColor;
-    [Header("Optional")]
-    public GameObject installedTower;
 
-    private Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);     
+    [HideInInspector]
+    public GameObject installedTower;
+    [HideInInspector]
+    public TowerBlueprint towerBluePrint;
+
+    private Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);
     private Renderer r;
     private Color startColor;
     private BuildManager buildManager;
@@ -41,8 +44,45 @@ public class Platform : MonoBehaviour
         if (!buildManager.CanBuild)
             return;
 
-        buildManager.BuildTowerOn(this);              
+        BuildTower(buildManager.GetTowerToBuild());
     }
+
+    void BuildTower(TowerBlueprint blueprint)
+    {
+        if (PlayerStats.Money < blueprint.cost)
+        {
+            Debug.Log("Not enough money to build!");
+            return;
+        }
+
+        PlayerStats.Money -= blueprint.cost;
+
+        //Создаём башню на данной платформе
+        GameObject tower = (GameObject)Instantiate(blueprint.prefab, this.GetBuildPosition(), Quaternion.identity);
+        this.installedTower = tower;
+
+        towerBluePrint = blueprint;
+
+        GameObject effect = Instantiate(buildManager.buildEffect, this.GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 4f);
+    }
+
+    public void UpgradeTower()
+    {
+        if (PlayerStats.Money < towerBluePrint.upgradeCost)
+        {
+            Debug.Log("Not enough money to upgrade!");
+            return;
+        }
+
+        PlayerStats.Money -= towerBluePrint.upgradeCost;
+
+        installedTower.GetComponent<Tower>().level += 0.1f;
+
+        GameObject effect = Instantiate(buildManager.buildEffect, this.GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 3f);
+    }
+
     private void OnMouseEnter()
     {
         //указатель на систему событий (что бы при нажатии на кнопку ничего не происходило на поле)

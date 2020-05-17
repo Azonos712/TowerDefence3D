@@ -1,22 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
     [Header("General")]
-    public float range = 15f;
-    public float turnSpeed = 6f;
-    
+    public float level = 1;
+    public float startRange = 15f;
+    private float range { get { return startRange * level; } }
+    public float startTurnSpeed = 6f;
+    private float turnSpeed { get { return startTurnSpeed * level; } }
+
     [Header("Use Bullets (default)")]
-    public float fireRate = 1f; // выстрелов в 1 секунду
+    public float startFireRate = 1f;
+    private float fireRate { get { return startFireRate * level; } } // выстрелов в 1 секунду
     private float fireCountDown = 0f;
     public GameObject bulletPrefab;
 
     [Header("Use Laser")]
     public bool useLaser = false;
-    public int damageOverTime = 20;
-    public float slowAmount = .3f;
+    public float startDamageOverTime = 20;
+    private float damageOverTime { get { return startDamageOverTime * level; } }
+    public float startSlowAmount = .3f;
+    private float slowAmount { get { return startSlowAmount * level; } }
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light impactLight;
@@ -33,12 +37,12 @@ public class Tower : MonoBehaviour
     private bool moveBack = true;
     private Vector3 startHelpFirePoint;
 
-
     void Start()
     {
         //Запускаем метод с повторением в секунду сразу же при вызове Start()
         InvokeRepeating("UpdateTarget", 0f, 1f);
-    }
+        level = 1;
+       }
 
     void UpdateTarget()
     {

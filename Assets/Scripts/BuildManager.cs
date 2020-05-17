@@ -25,24 +25,6 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    public void BuildTowerOn(Platform platform)
-    {
-        if (PlayerStats.Money < towerToBuild.cost)
-        {
-            Debug.Log("Not enough money!");
-            return;
-        }
-
-        PlayerStats.Money -= towerToBuild.cost;
-
-        //Создаём башню на данной платформе
-        GameObject tower = (GameObject)Instantiate(towerToBuild.prefab, platform.GetBuildPosition(), Quaternion.identity);
-        platform.installedTower = tower;
-
-        GameObject effect = Instantiate(buildEffect, platform.GetBuildPosition(), Quaternion.identity);
-        Destroy(effect, 4f);
-    }
-
     public void SelectPlatform(Platform platform)
     {
         if(selectedPlatfrom == platform)
@@ -69,5 +51,10 @@ public class BuildManager : MonoBehaviour
         towerToBuild = tower;
 
         DeselectNode();
+    }
+
+    public TowerBlueprint GetTowerToBuild()
+    {
+        return towerToBuild;
     }
 }
