@@ -36,6 +36,7 @@ public class Spawner : MonoBehaviour
     IEnumerator Spawn()
     {
         waveIndex++;
+        PlayerStats.Rounds++;
         for (int i = 0; i < waveIndex; i++)
         {
             SpawnEnemy();
