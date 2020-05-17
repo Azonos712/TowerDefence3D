@@ -6,7 +6,7 @@ public class BuildManager : MonoBehaviour
     public static BuildManager instance;
 
     public GameObject buildEffect;
-    public SelectUI selectUI;
+    public SelectUI platformUI;
 
     private TowerBlueprint towerToBuild;
     private Platform selectedPlatfrom;
@@ -45,15 +45,29 @@ public class BuildManager : MonoBehaviour
 
     public void SelectPlatform(Platform platform)
     {
+        if(selectedPlatfrom == platform)
+        {
+            DeselectNode();
+            return;
+        }
+
         selectedPlatfrom = platform;
         towerToBuild = null;
 
-        selectUI.SetTarget(platform);
+        platformUI.SetTarget(platform);
+    }
+
+
+    public void DeselectNode()
+    {
+        selectedPlatfrom = null;
+        platformUI.Hide();
     }
 
     public void SelectTowerToBuild(TowerBlueprint tower)
     {
         towerToBuild = tower;
-        selectedPlatfrom = null;
+
+        DeselectNode();
     }
 }
