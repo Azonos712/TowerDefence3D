@@ -282,12 +282,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc0896036957724ba399ca140344243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 30
-  turnSpeed: 4
-  fireRate: 0.25
-  partToRotate: {fileID: 360740205917755176}
+  range: 25
+  turnSpeed: 3
+  fireRate: 0.2
   bulletPrefab: {fileID: 6215277595392587746, guid: 0ef58146423044147a118e26b51b68e8,
     type: 3}
+  useLaser: 0
+  damageOverTime: 20
+  lineRenderer: {fileID: 0}
+  impactEffect: {fileID: 0}
+  impactLight: {fileID: 0}
+  partToRotate: {fileID: 360740205917755176}
   firePoint: {fileID: 8680624196816213937}
   helpFirePoint: {fileID: 1819425758876083632}
 --- !u!1 &3670571947289163762

@@ -15,6 +15,8 @@ public class Tower : MonoBehaviour
 
     [Header("Use Laser")]
     public bool useLaser = false;
+    public int damageOverTime = 20;
+    public float slowAmount = .3f;
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light impactLight;
@@ -25,6 +27,8 @@ public class Tower : MonoBehaviour
     public Transform helpFirePoint;
 
     private Transform targetForShooting;
+    private Enemy targetEnemy;
+
     private bool shotFired = false;
     private bool moveBack = true;
     private Vector3 startHelpFirePoint;
@@ -57,6 +61,7 @@ public class Tower : MonoBehaviour
         if (nearestEnemy != null && shortestDistanse <= range)
         {
             targetForShooting = nearestEnemy.transform;
+            targetEnemy = nearestEnemy.GetComponent<Enemy>();
         }
         else
         {
@@ -131,6 +136,9 @@ public class Tower : MonoBehaviour
 
     void Laser()
     {
+        targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
+        targetEnemy.Slow(slowAmount);
+
         if (!lineRenderer.enabled)
         {
             OnEffects();
@@ -140,7 +148,7 @@ public class Tower : MonoBehaviour
         lineRenderer.SetPosition(1, targetForShooting.position);
 
         Vector3 dir = firePoint.position - targetForShooting.position;
-        
+
         //смещение и поворот эффекта
         impactEffect.transform.position = targetForShooting.position + dir.normalized;
         impactEffect.transform.rotation = Quaternion.LookRotation(dir);
