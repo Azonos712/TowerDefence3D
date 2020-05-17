@@ -16,6 +16,8 @@ public class Tower : MonoBehaviour
     [Header("Use Laser")]
     public bool useLaser = false;
     public LineRenderer lineRenderer;
+    public ParticleSystem impactEffect;
+    public Light impactLight;
 
     [Header("Unity Setup Fields")]
     public Transform partToRotate;
@@ -60,6 +62,14 @@ public class Tower : MonoBehaviour
         {
             targetForShooting = null;
         }
+
+        if (useLaser)
+        {
+            if (lineRenderer.enabled)
+            {
+                OffEffects();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -76,26 +86,33 @@ public class Tower : MonoBehaviour
             if (useLaser)
             {
                 if (lineRenderer.enabled)
-                    lineRenderer.enabled = false;
+                {
+                    OffEffects();
+                }
             }
+
             return;
         }
 
-        LockOnTarget();
 
-        if (useLaser)
+        if (ReadyToShoot())
         {
-            Laser();
-        }
-        else
-        {
-            if (fireCountDown <= 0f && ReadyToShoot())
+            if (useLaser)
             {
-                Shoot();
-                InitializedBeforeRecoil();
-                fireCountDown = 1f / fireRate;
+                Laser();
+            }
+            else
+            {
+                if (fireCountDown <= 0f)
+                {
+                    Shoot();
+                    InitializedBeforeRecoil();
+                    fireCountDown = 1f / fireRate;
+                }
             }
         }
+
+        LockOnTarget();
     }
 
     void LockOnTarget()
@@ -115,10 +132,32 @@ public class Tower : MonoBehaviour
     void Laser()
     {
         if (!lineRenderer.enabled)
-            lineRenderer.enabled = true;
+        {
+            OnEffects();
+        }
 
         lineRenderer.SetPosition(0, firePoint.position);
         lineRenderer.SetPosition(1, targetForShooting.position);
+
+        Vector3 dir = firePoint.position - targetForShooting.position;
+        
+        //смещение и поворот эффекта
+        impactEffect.transform.position = targetForShooting.position + dir.normalized;
+        impactEffect.transform.rotation = Quaternion.LookRotation(dir);
+    }
+
+    void OnEffects()
+    {
+        lineRenderer.enabled = true;
+        impactEffect.Play();
+        impactLight.enabled = true;
+    }
+
+    void OffEffects()
+    {
+        lineRenderer.enabled = false;
+        impactEffect.Stop();
+        impactLight.enabled = false;
     }
 
     bool ReadyToShoot()
