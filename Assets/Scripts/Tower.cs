@@ -179,7 +179,10 @@ public class Tower : MonoBehaviour
 
         if (Vector3.Angle(dir1.normalized, dir2.normalized) <= 7)
         {
-            return true;
+            if (dir1.magnitude <= dir2.magnitude)
+                return true;
+            else
+                return false;
         }
         else
         {
