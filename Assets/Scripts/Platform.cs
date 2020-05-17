@@ -31,15 +31,15 @@ public class Platform : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (!buildManager.CanBuild)
-            return;
-
         //Проверка попытки построить башню там где она уже есть
         if (installedTower != null)
         {
-            Debug.Log("TODO: Display on screen!");
+            buildManager.SelectPlatform(this);
             return;
         }
+
+        if (!buildManager.CanBuild)
+            return;
 
         buildManager.BuildTowerOn(this);              
     }

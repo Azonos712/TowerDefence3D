@@ -6,8 +6,10 @@ public class BuildManager : MonoBehaviour
     public static BuildManager instance;
 
     public GameObject buildEffect;
+    public SelectUI selectUI;
 
     private TowerBlueprint towerToBuild;
+    private Platform selectedPlatfrom;
 
     public bool CanBuild { get { return towerToBuild != null; } }
     public bool HasMoney { get { return PlayerStats.Money >= towerToBuild.cost; } }
@@ -25,7 +27,7 @@ public class BuildManager : MonoBehaviour
 
     public void BuildTowerOn(Platform platform)
     {
-        if(PlayerStats.Money < towerToBuild.cost)
+        if (PlayerStats.Money < towerToBuild.cost)
         {
             Debug.Log("Not enough money!");
             return;
@@ -41,8 +43,17 @@ public class BuildManager : MonoBehaviour
         Destroy(effect, 4f);
     }
 
+    public void SelectPlatform(Platform platform)
+    {
+        selectedPlatfrom = platform;
+        towerToBuild = null;
+
+        selectUI.SetTarget(platform);
+    }
+
     public void SelectTowerToBuild(TowerBlueprint tower)
     {
         towerToBuild = tower;
+        selectedPlatfrom = null;
     }
 }
