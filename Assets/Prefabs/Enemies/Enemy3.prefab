@@ -325,8 +325,8 @@ MonoBehaviour:
   startSpeed: 3
   speed: 0
   turnSpeed: 4
-  startHealth: 400
-  reward: 200
+  startHealth: 500
+  reward: 250
   deathEffect: {fileID: 5995848813553997163, guid: aa5b22cab46c569418583825497723dc,
     type: 3}
   healthBar: {fileID: 9095149053574831236}
