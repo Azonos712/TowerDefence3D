@@ -5,18 +5,27 @@ public class Platform : MonoBehaviour
 {
     //цвет выделения
     public Color emissionColor;
+    public Color notEnoughMoneyColor;
+
+    [HideInInspector]
+    public GameObject installedTower;
+    [HideInInspector]
+    public TowerBlueprint towerBluePrint;
 
     private Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);
-    private GameObject installedTower;
     private Renderer r;
     private Color startColor;
-
-    BuildManager buildManager;
+    private BuildManager buildManager;
     private void Start()
     {
         r = GetComponent<Renderer>();
         startColor = r.material.color;
         buildManager = BuildManager.instance;
+    }
+
+    public Vector3 GetBuildPosition()
+    {
+        return transform.position + positionOffset;
     }
 
     private void OnMouseDown()
@@ -25,31 +34,79 @@ public class Platform : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (buildManager.GetTowerToBuild() == null)
-            return;
-
         //Проверка попытки построить башню там где она уже есть
         if (installedTower != null)
         {
-            Debug.Log("TODO: Display on screen!");
+            buildManager.SelectPlatform(this);
             return;
         }
 
-        //Получаем башню из класса управления строительством
-        GameObject towerToBuild = BuildManager.instance.GetTowerToBuild();
-        //Создаём башню на данной платформе
-        installedTower = Instantiate(towerToBuild, transform.position + positionOffset, transform.rotation);
+        if (!buildManager.CanBuild)
+            return;
+
+        BuildTower(buildManager.GetTowerToBuild());
     }
+
+    void BuildTower(TowerBlueprint blueprint)
+    {
+        if (PlayerStats.Money < blueprint.cost)
+        {
+            Debug.Log("Not enough money to build!");
+            return;
+        }
+
+        PlayerStats.Money -= blueprint.cost;
+
+        //Создаём башню на данной платформе
+        GameObject tower = (GameObject)Instantiate(blueprint.prefab, this.GetBuildPosition(), Quaternion.identity);
+        this.installedTower = tower;
+
+        towerBluePrint = blueprint;
+
+        GameObject effect = Instantiate(buildManager.buildEffect, this.GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 4f);
+    }
+
+    public void UpgradeTower()
+    {
+        if (PlayerStats.Money < towerBluePrint.upgradeCost)
+        {
+            Debug.Log("Not enough money to upgrade!");
+            return;
+        }
+
+        PlayerStats.Money -= (int)(towerBluePrint.upgradeCost * installedTower.GetComponent<Tower>().level);
+
+        installedTower.GetComponent<Tower>().level += 0.1f;
+
+        GameObject effect = Instantiate(buildManager.buildEffect, this.GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 3f);
+    }
+
+    public void SellTower()
+    {
+        PlayerStats.Money += (int)(towerBluePrint.sellCost * installedTower.GetComponent<Tower>().level);
+
+        GameObject effect = Instantiate(buildManager.sellEffect, this.GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 4f);
+
+        Destroy(installedTower);
+        towerBluePrint = null;
+    }
+
     private void OnMouseEnter()
     {
         //указатель на систему событий (что бы при нажатии на кнопку ничего не происходило на поле)
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (buildManager.GetTowerToBuild() == null)
+        if (!buildManager.CanBuild)
             return;
-
-        r.material.color = emissionColor;
+        //TODO: при наведении на платформу с башней
+        if (buildManager.HasMoney)
+            r.material.color = emissionColor;
+        else
+            r.material.color = notEnoughMoneyColor;
     }
     private void OnMouseExit()
     {

@@ -5,10 +5,15 @@ public class BuildManager : MonoBehaviour
     //создаётся только одна сущность данного класса-Singleton
     public static BuildManager instance;
 
-    public GameObject standartTowerPrefab;
-    public GameObject missileLauncherPrefab;
+    public GameObject buildEffect;
+    public GameObject sellEffect;
+    public SelectUI platformUI;
 
-    private GameObject towerToBuild;
+    private TowerBlueprint towerToBuild;
+    private Platform selectedPlatfrom;
+
+    public bool CanBuild { get { return towerToBuild != null; } }
+    public bool HasMoney { get { return PlayerStats.Money >= towerToBuild.cost; } }
 
     private void Awake()
     {
@@ -21,13 +26,36 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    public GameObject GetTowerToBuild()
+    public void SelectPlatform(Platform platform)
     {
-        return towerToBuild;
+        if(selectedPlatfrom == platform)
+        {
+            DeselectNode();
+            return;
+        }
+
+        selectedPlatfrom = platform;
+        towerToBuild = null;
+
+        platformUI.SetTarget(platform);
     }
 
-    public void SetTowerToBuild(GameObject tower)
+
+    public void DeselectNode()
+    {
+        selectedPlatfrom = null;
+        platformUI.Hide();
+    }
+
+    public void SelectTowerToBuild(TowerBlueprint tower)
     {
         towerToBuild = tower;
+
+        DeselectNode();
+    }
+
+    public TowerBlueprint GetTowerToBuild()
+    {
+        return towerToBuild;
     }
 }

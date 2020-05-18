@@ -9,16 +9,14 @@ public class CameraController : MonoBehaviour
 
     private float minY = 10f;
     private float maxY = 85f;
-    private bool readyToMove = true;
 
     void Update()
     {
-        //Отключение перемещения по клавише Esc
-        if (Input.GetKeyDown(KeyCode.Escape))
-            readyToMove = !readyToMove;
-        //Проверяем возмонжность двигать камеру
-        if (!readyToMove)
+        if (GameManager.GameIsOver)
+        {
+            this.enabled = false;
             return;
+        }
 
         if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - borderOffset)
         {

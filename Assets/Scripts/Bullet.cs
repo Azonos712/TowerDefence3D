@@ -5,8 +5,10 @@ public class Bullet : MonoBehaviour
     [Header("Attributes")]
     public float speed = 70f;
     public float explosionRadius = 0f;
+    public int damage=40;
     [Header("Unity Setup Fields")]
     public GameObject impactEffect;
+
     private Transform target;
 
     public void Seek(Transform _target)
@@ -59,7 +61,7 @@ public class Bullet : MonoBehaviour
 
     void Explode()
     {
-        //получаем список объектов задетых сферой
+        //получаем список объектов задетых сферой c заданным радиусом
         Collider[] hitObjects = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (var obj in hitObjects)
         {
@@ -72,7 +74,12 @@ public class Bullet : MonoBehaviour
 
     void Damage(Transform enemy)
     {
-        Destroy(enemy.gameObject);
+        var e = enemy.GetComponent<Enemy>();
+
+        if (e != null)
+        {
+            e.TakeDamage(damage);
+        }
     }
 
     private void OnDrawGizmosSelected()
