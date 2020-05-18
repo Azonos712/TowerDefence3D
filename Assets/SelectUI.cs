@@ -15,12 +15,13 @@ public class SelectUI : MonoBehaviour
         selectedPlatform = _platform;
 
         transform.position = selectedPlatform.GetBuildPosition();
+        var lvl = selectedPlatform.installedTower.GetComponent<Tower>().level;
 
-        sellCost.text = "$" + selectedPlatform.towerBluePrint.sellCost.ToString();
+        sellCost.text = "$" + (int)(selectedPlatform.towerBluePrint.sellCost * lvl);
 
-        if (selectedPlatform.installedTower.GetComponent<Tower>().level < 1.5)
+        if (lvl < 1.5)
         {
-            upgradeCost.text = "$" + selectedPlatform.towerBluePrint.upgradeCost.ToString();
+            upgradeCost.text = "$" + (int)(selectedPlatform.towerBluePrint.upgradeCost * lvl);
             upgradeButton.interactable = true;
         }
         else

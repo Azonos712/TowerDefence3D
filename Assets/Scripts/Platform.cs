@@ -75,7 +75,7 @@ public class Platform : MonoBehaviour
             return;
         }
 
-        PlayerStats.Money -= towerBluePrint.upgradeCost;
+        PlayerStats.Money -= (int)(towerBluePrint.upgradeCost * installedTower.GetComponent<Tower>().level);
 
         installedTower.GetComponent<Tower>().level += 0.1f;
 
@@ -85,7 +85,7 @@ public class Platform : MonoBehaviour
 
     public void SellTower()
     {
-        PlayerStats.Money += towerBluePrint.sellCost;
+        PlayerStats.Money += (int)(towerBluePrint.sellCost * installedTower.GetComponent<Tower>().level);
 
         GameObject effect = Instantiate(buildManager.sellEffect, this.GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 4f);
