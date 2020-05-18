@@ -3,6 +3,8 @@
 [RequireComponent(typeof(Enemy))]
 public class EnemyMovement : MonoBehaviour
 {
+    public Transform model;
+
     private Transform currentTarget;
     private int wayPointIndex = 0;
 
@@ -47,8 +49,8 @@ public class EnemyMovement : MonoBehaviour
         Vector3 dir = currentTarget.position - transform.position;
 
         Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * enemy.turnSpeed).eulerAngles;//lookRotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        Vector3 rotation = Quaternion.Lerp(model.rotation, lookRotation, Time.deltaTime * enemy.turnSpeed).eulerAngles;//lookRotation.eulerAngles;
+        model.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
         //Приводим вектор направления к нормализованному, чтобы не было разных скоростей
         //Далее перемножаем этот вектор на скорость и разность времени между кадрами
