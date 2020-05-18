@@ -40,12 +40,20 @@ public class Tower : MonoBehaviour
     void Start()
     {
         //Запускаем метод с повторением в секунду сразу же при вызове Start()
-        InvokeRepeating("UpdateTarget", 0f, 1f);
+        InvokeRepeating("UpdateTarget", 0f, 0.5f);
         level = 1;
     }
 
     void UpdateTarget()
     {
+        if (useLaser)
+        {
+            if (lineRenderer.enabled)
+            {
+                OffEffects();
+            }
+        }
+
         //Находим все объекты на карте под тегом
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         float shortestDistanse = Mathf.Infinity;
@@ -70,14 +78,6 @@ public class Tower : MonoBehaviour
         else
         {
             targetForShooting = null;
-        }
-
-        if (useLaser)
-        {
-            if (lineRenderer.enabled)
-            {
-                OffEffects();
-            }
         }
     }
 

@@ -5005,7 +5005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  startRange: 10
+  startRange: 15
   startTurnSpeed: 4
   startFireRate: 1
   bulletPrefab: {fileID: 0}

@@ -48,6 +48,8 @@ public class Enemy : MonoBehaviour
         Destroy(e, 3f);
 
         Destroy(gameObject);
+
+        Spawner.EnemiesAlive--;
     }
 
     
