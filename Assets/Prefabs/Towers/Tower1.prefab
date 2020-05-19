@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  startRange: 20
+  startRange: 13
   startTurnSpeed: 5
   startFireRate: 0.7
   bulletPrefab: {fileID: 7026695592584610389, guid: 66034d19aa0fea64f92af3d25eefbb72,

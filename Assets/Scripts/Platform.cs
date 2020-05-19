@@ -69,11 +69,11 @@ public class Platform : MonoBehaviour
 
     public void UpgradeTower()
     {
-        if (PlayerStats.Money < towerBluePrint.upgradeCost)
-        {
-            Debug.Log("Not enough money to upgrade!");
-            return;
-        }
+        //if (PlayerStats.Money < towerBluePrint.upgradeCost)
+        //{
+        //    Debug.Log("Not enough money to upgrade!");
+        //    return;
+        //}
 
         PlayerStats.Money -= (int)(towerBluePrint.upgradeCost * installedTower.GetComponent<Tower>().level);
 

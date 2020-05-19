@@ -5,7 +5,8 @@ public class Tower : MonoBehaviour
     [Header("General")]
     public float level = 1;
     public float startRange = 15f;
-    private float range { get { return startRange * level; } }
+    [HideInInspector]
+    public float range { get { return startRange * level; } }
     public float startTurnSpeed = 6f;
     private float turnSpeed { get { return startTurnSpeed * level; } }
 

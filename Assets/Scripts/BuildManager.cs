@@ -8,6 +8,7 @@ public class BuildManager : MonoBehaviour
     public GameObject buildEffect;
     public GameObject sellEffect;
     public SelectUI platformUI;
+    public Shop shopUI;
 
     private TowerBlueprint towerToBuild;
     private Platform selectedPlatfrom;
@@ -37,6 +38,7 @@ public class BuildManager : MonoBehaviour
         selectedPlatfrom = platform;
         towerToBuild = null;
 
+        shopUI.SetBorder(-1);
         platformUI.SetTarget(platform);
     }
 
@@ -44,13 +46,12 @@ public class BuildManager : MonoBehaviour
     public void DeselectNode()
     {
         selectedPlatfrom = null;
-        platformUI.Hide();
+        platformUI.SetShowStatus(false);
     }
 
     public void SelectTowerToBuild(TowerBlueprint tower)
     {
         towerToBuild = tower;
-
         DeselectNode();
     }
 
