@@ -1,5 +1,4 @@
-﻿using System.Xml.Serialization;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour

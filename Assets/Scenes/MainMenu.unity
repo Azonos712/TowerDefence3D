@@ -644,7 +644,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 824391941}
+      - m_Target: {fileID: 824391943}
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -683,7 +683,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 824391942}
-  - component: {fileID: 824391941}
+  - component: {fileID: 824391943}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -691,20 +691,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &824391941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824391940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f93c3a883c803504c87242545781d141, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelToLoad: LevelSelect
-  sceneFader: {fileID: 1523194282}
 --- !u!4 &824391942
 Transform:
   m_ObjectHideFlags: 0
@@ -719,6 +705,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &824391943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824391940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd61c45aa06cd342aac63d858670f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneFader: {fileID: 1523194282}
+  menuSceneName: MainMenu
+  nextLevel: Level02
+  levelToUnlock: 2
 --- !u!1 &964645603 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2089297749767526844, guid: 9046041158d9a0c4c873c5c0fabe1932,
@@ -992,7 +994,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 824391941}
+      - m_Target: {fileID: 824391943}
         m_MethodName: Qiut
         m_Mode: 1
         m_Arguments:

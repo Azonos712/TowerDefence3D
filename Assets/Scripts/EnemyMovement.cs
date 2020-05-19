@@ -12,7 +12,7 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         enemy = GetComponent<Enemy>();
-        currentTarget = Waypoints.points[wayPointIndex];
+        currentTarget = Spawner.points[wayPointIndex];
     }
 
     void Update()
@@ -28,12 +28,12 @@ public class EnemyMovement : MonoBehaviour
 
     void GetNextTarget()
     {
-        if (wayPointIndex >= Waypoints.points.Length - 1)
+        if (wayPointIndex >= Spawner.points.Length - 1)
         {
             EndPath();
             return;
         }
-        currentTarget = Waypoints.points[++wayPointIndex];
+        currentTarget = Spawner.points[++wayPointIndex];
     }
 
     void EndPath()
