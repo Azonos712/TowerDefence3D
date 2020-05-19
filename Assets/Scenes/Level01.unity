@@ -19815,7 +19815,6 @@ GameObject:
   - component: {fileID: 1684243837}
   - component: {fileID: 1684243836}
   - component: {fileID: 1684243838}
-  - component: {fileID: 1684243839}
   m_Layer: 5
   m_Name: Money
   m_TagString: Untagged
@@ -19897,19 +19896,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.3647059}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
---- !u!114 &1684243839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684243834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bff67f215c2377d4189dfd61e14e6c63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyText: {fileID: 1684243836}
 --- !u!1001 &1690740086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20599,7 +20585,6 @@ GameObject:
   - component: {fileID: 1754012406}
   - component: {fileID: 1754012405}
   - component: {fileID: 1754012404}
-  - component: {fileID: 1754012403}
   m_Layer: 5
   m_Name: Lives
   m_TagString: Untagged
@@ -20626,19 +20611,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1754012403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754012401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7403c91ce69a454d83daed46bed0ea0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  livesText: {fileID: 1754012405}
 --- !u!114 &1754012404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21379,6 +21351,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startMoney: 500
   startLives: 1
+  livesText: {fileID: 1754012405}
+  moneyText: {fileID: 1684243836}
 --- !u!114 &1801264080
 MonoBehaviour:
   m_ObjectHideFlags: 0

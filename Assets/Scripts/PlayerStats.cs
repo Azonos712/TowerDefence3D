@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -12,10 +11,19 @@ public class PlayerStats : MonoBehaviour
 
     public static int Rounds;
 
+    public Text livesText;
+    public Text moneyText;
+
     private void Start()
     {
         Money = startMoney;
         Lives = startLives;
         Rounds = 0;
+    }
+
+    void Update()
+    {
+        moneyText.text = "$" + PlayerStats.Money.ToString();
+        livesText.text = "Lives: " + PlayerStats.Lives.ToString();
     }
 }
