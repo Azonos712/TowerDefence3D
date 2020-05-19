@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
     public Transform spawnPoint;
     //Надпись отсчёта времени между волнами
     public Text nextWaveTimerText;
+    public GameManager gameManager;
 
     private float timeBetweenWaves = 3;
     //отсчёт для следующей волны
@@ -26,7 +27,7 @@ public class Spawner : MonoBehaviour
 
         if (waveIndex == waves.Length)
         {
-            Debug.Log("Level won");
+            gameManager.WinLevel();
             this.enabled = false;
         }
 

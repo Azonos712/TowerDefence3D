@@ -20505,6 +20505,7 @@ MonoBehaviour:
     rate: 0.2
   spawnPoint: {fileID: 1767553861}
   nextWaveTimerText: {fileID: 887277381}
+  gameManager: {fileID: 1801264080}
 --- !u!114 &1801264078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20534,8 +20535,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accd3a9d242d2ec469cf5ae80abc9b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMoney: 200
-  startLives: 3
+  startMoney: 500
+  startLives: 1
 --- !u!114 &1801264080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20549,6 +20550,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverUI: {fileID: 2138088704}
+  nextLevel: Level02
+  levelToUnlock: 2
+  sceneFader: {fileID: 530353449}
 --- !u!114 &1801264081
 MonoBehaviour:
   m_ObjectHideFlags: 0
