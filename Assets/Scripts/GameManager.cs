@@ -6,10 +6,7 @@ public class GameManager : MonoBehaviour
 
     public static bool GameIsOver;
 
-    public string nextLevel = "Level02";
-    public int levelToUnlock = 2;
-
-    public SceneFader sceneFader;
+    public GameObject completeLevelUI;
 
     void Start()
     {
@@ -21,9 +18,14 @@ public class GameManager : MonoBehaviour
         if (GameIsOver)
             return;
 
-        if (Input.GetKey("e"))
+        if (Input.GetKey("e") && Input.GetKey(KeyCode.LeftControl))
         {
             EndGame();
+        }
+
+        if (Input.GetKey("w") && Input.GetKey(KeyCode.LeftControl))
+        {
+            WinLevel();
         }
 
         if (PlayerStats.Lives <= 0)
@@ -40,8 +42,7 @@ public class GameManager : MonoBehaviour
 
     public void WinLevel()
     {
-        Debug.Log("Level won");
-        PlayerPrefs.SetInt("levelReached", levelToUnlock);
-        sceneFader.FadeTo(nextLevel);
+        GameIsOver = true;
+        completeLevelUI.SetActive(true);
     }
 }

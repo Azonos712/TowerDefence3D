@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
@@ -16,6 +15,7 @@ public class Enemy : MonoBehaviour
     public GameObject deathEffect;
     public Image healthBar;
 
+    private bool deadInside = false;
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
 
         healthBar.fillAmount = ((health * 100f) / startHealth) / 100f;
 
-        if (health <= 0)
+        if (health <= 0 && !deadInside)
         {
             Die();
         }
@@ -42,14 +42,15 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        deadInside = true;
         PlayerStats.Money += reward;
 
         GameObject e = Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(e, 3f);
 
-        Destroy(gameObject);
-
         Spawner.EnemiesAlive--;
+
+        Destroy(gameObject);
     }
 
     
