@@ -9,6 +9,8 @@ public class SelectUI : MonoBehaviour
     public Text sellCost;
     public Button upgradeButton;
     public Animator anim;
+    public AudioSource selectAudio;
+    public AudioSource noUpgradeAudio;
 
     private Platform selectedPlatform;
     Color oldColor;
@@ -93,15 +95,18 @@ public class SelectUI : MonoBehaviour
     {
         if (PlayerStats.Money < (selectedPlatform.towerBluePrint.upgradeCost * lvl)){
             anim.Play("NoUpgrade");
+            noUpgradeAudio.Play();
             return;
         }
 
+        selectAudio.Play();
         selectedPlatform.UpgradeTower();
         BuildManager.instance.DeselectNode();
     }
 
     public void Sell()
     {
+        selectAudio.Play();
         selectedPlatform.SellTower();
         BuildManager.instance.DeselectNode();
     }

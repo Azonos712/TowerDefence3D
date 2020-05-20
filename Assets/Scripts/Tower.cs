@@ -25,6 +25,7 @@ public class Tower : MonoBehaviour
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light impactLight;
+    public AudioSource laserAudio;
 
     [Header("Unity Setup Fields")]
     public Transform partToRotate;
@@ -41,7 +42,7 @@ public class Tower : MonoBehaviour
     void Start()
     {
         //Запускаем метод с повторением в секунду сразу же при вызове Start()
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        InvokeRepeating("UpdateTarget", 0f, 0.6f);
         level = 1;
     }
 
@@ -161,6 +162,7 @@ public class Tower : MonoBehaviour
 
     void OnEffects()
     {
+        laserAudio.Play();
         lineRenderer.enabled = true;
         impactEffect.Play();
         impactLight.enabled = true;
@@ -168,6 +170,7 @@ public class Tower : MonoBehaviour
 
     void OffEffects()
     {
+        laserAudio.Stop();
         lineRenderer.enabled = false;
         impactEffect.Stop();
         impactLight.enabled = false;

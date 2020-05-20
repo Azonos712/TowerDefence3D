@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static bool GameIsOver;
 
     public GameObject completeLevelUI;
+    public AudioSource winAudio;
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     public void WinLevel()
     {
+        winAudio.Play();
         GameIsOver = true;
         completeLevelUI.SetActive(true);
     }
