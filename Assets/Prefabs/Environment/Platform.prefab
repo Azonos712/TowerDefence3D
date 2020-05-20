@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: beb3bf487b3a4c141a990c704bc89962, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,6 +108,11 @@ MonoBehaviour:
   emissionColor: {r: 0.5883232, g: 0.8867924, b: 0.12130654, a: 0}
   notEnoughMoneyColor: {r: 0.8773585, g: 0.13656996, b: 0.13656996, a: 0}
   installedTower: {fileID: 0}
+  towerBluePrint:
+    prefab: {fileID: 0}
+    cost: 0
+    upgradeCost: 0
+    sellCost: 0
 --- !u!1 &8278446742091426933
 GameObject:
   m_ObjectHideFlags: 0
