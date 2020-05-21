@@ -10,7 +10,7 @@ public class BuildManager : MonoBehaviour
     public SelectUI platformUI;
 
     private TowerBlueprint towerToBuild;
-    private Platform selectedPlatfrom;
+    public Platform selectedPlatform;
 
     public Component leftShop;
     public TowerBlueprint standartTower;
@@ -33,23 +33,22 @@ public class BuildManager : MonoBehaviour
 
     public void SelectPlatform(Platform platform)
     {
-        if(selectedPlatfrom == platform)
+        if(selectedPlatform == platform)
         {
             DeselectNode();
             return;
         }
 
-        selectedPlatfrom = platform;
+        selectedPlatform = platform;
         towerToBuild = null;
 
         SetBorder(-1);
         platformUI.SetTarget(platform);
     }
 
-
     public void DeselectNode()
     {
-        selectedPlatfrom = null;
+        selectedPlatform = null;
         platformUI.SetShowStatus(false);
     }
 
