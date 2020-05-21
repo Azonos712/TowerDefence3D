@@ -38868,8 +38868,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneFader: {fileID: 530353449}
   menuSceneName: MainMenu
-  nextLevel: Level02
-  levelToUnlock: 2
+  nextLevel: MainMenu
+  levelToUnlock: 3
   selectAudio: {fileID: 1628648380}
 --- !u!82 &1628648380
 AudioSource:
@@ -41219,8 +41219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accd3a9d242d2ec469cf5ae80abc9b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMoney: 350
-  startLives: 1
+  startMoney: 450
+  startLives: 3
   livesText: {fileID: 1754012405}
   moneyText: {fileID: 1684243836}
 --- !u!114 &1801264081
@@ -55654,6 +55654,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6149663825170684731, guid: fe6acf5627bd35b4b863e34ab12ca7f8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16493ea419ed51b4fa3d02dfbcd147a1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe6acf5627bd35b4b863e34ab12ca7f8, type: 3}
 --- !u!1001 &6863839367209984380
@@ -55797,6 +55802,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Space effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863287777701049534, guid: 4594ff11622a40f4d81607551ade0890,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863287777701049534, guid: 4594ff11622a40f4d81607551ade0890,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.84095335
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863287777701049534, guid: 4594ff11622a40f4d81607551ade0890,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.5255874
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4594ff11622a40f4d81607551ade0890, type: 3}

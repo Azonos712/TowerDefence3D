@@ -13,7 +13,10 @@ public class MenuController : MonoBehaviour
     public void Continue()
     {
         selectAudio.Play();
-        PlayerPrefs.SetInt("levelReached", levelToUnlock);
+
+        var temp = PlayerPrefs.GetInt("levelReached");
+        if (temp < levelToUnlock)
+            PlayerPrefs.SetInt("levelReached", levelToUnlock);
         sceneFader.FadeTo(nextLevel);
     }
 
