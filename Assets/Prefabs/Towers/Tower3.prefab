@@ -5101,12 +5101,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   startRange: 15
-  startTurnSpeed: 6
+  startTurnSpeed: 7
   partToRotate: {fileID: 3917941744509343359}
   firePoint: {fileID: 4061903345641250130}
   helpFirePoint: {fileID: 4010798689986655079}
-  startDamageOverTime: 20
-  startSlowAmount: 0.3
+  startDamageOverTime: 25
+  startSlowAmount: 0.35
   lineRenderer: {fileID: 6379217409936565381}
   impactEffect: {fileID: 1619347230404274669}
   impactLight: {fileID: 1094070948321090830}

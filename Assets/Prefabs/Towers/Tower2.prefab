@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  startRange: 20
+  startRange: 23
   startTurnSpeed: 3
   partToRotate: {fileID: 360740205917755176}
   firePoint: {fileID: 8680624196816213937}

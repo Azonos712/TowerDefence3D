@@ -140,12 +140,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  startRange: 17
-  startTurnSpeed: 8
+  startRange: 16
+  startTurnSpeed: 6
   partToRotate: {fileID: 7697719910297565995}
   firePoint: {fileID: 1493571717925207093}
   helpFirePoint: {fileID: 221279695465029341}
-  startFireRate: 1
+  startFireRate: 0.7
   bulletPrefab: {fileID: 7026695592584610389, guid: 66034d19aa0fea64f92af3d25eefbb72,
     type: 3}
 --- !u!1 &8347533058131050395
