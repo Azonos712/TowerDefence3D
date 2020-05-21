@@ -4966,8 +4966,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4035156225756930551}
-  - component: {fileID: 114363807850383222}
   - component: {fileID: 6379217409936565381}
+  - component: {fileID: 463524859953510921}
   m_Layer: 0
   m_Name: Tower3
   m_TagString: Untagged
@@ -4992,33 +4992,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114363807850383222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4035156225757101527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dc0896036957724ba399ca140344243, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 1
-  startRange: 10
-  startTurnSpeed: 4
-  startFireRate: 1
-  bulletPrefab: {fileID: 0}
-  useLaser: 1
-  startDamageOverTime: 15
-  startSlowAmount: 0.3
-  lineRenderer: {fileID: 6379217409936565381}
-  impactEffect: {fileID: 1619347230404274669}
-  impactLight: {fileID: 1094070948321090830}
-  laserAudio: {fileID: 433400615914073782}
-  partToRotate: {fileID: 3917941744509343359}
-  firePoint: {fileID: 4061903345641250130}
-  helpFirePoint: {fileID: 4010798689986655079}
 --- !u!120 &6379217409936565381
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -5114,6 +5087,30 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &463524859953510921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4035156225757101527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee8833690f6c5b4795e878debe00c67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
+  startRange: 15
+  startTurnSpeed: 6
+  partToRotate: {fileID: 3917941744509343359}
+  firePoint: {fileID: 4061903345641250130}
+  helpFirePoint: {fileID: 4010798689986655079}
+  startDamageOverTime: 20
+  startSlowAmount: 0.3
+  lineRenderer: {fileID: 6379217409936565381}
+  impactEffect: {fileID: 1619347230404274669}
+  impactLight: {fileID: 1094070948321090830}
+  laserAudio: {fileID: 433400615914073782}
 --- !u!1 &5843729264042596494
 GameObject:
   m_ObjectHideFlags: 0

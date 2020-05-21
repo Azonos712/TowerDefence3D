@@ -246,7 +246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1936630736116966118}
-  - component: {fileID: 473569811834163366}
+  - component: {fileID: 2182966601754401224}
   m_Layer: 0
   m_Name: Tower2
   m_TagString: Untagged
@@ -270,7 +270,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &473569811834163366
+--- !u!114 &2182966601754401224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,24 +279,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1936630736117137094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dc0896036957724ba399ca140344243, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c1ac262a9ffc8246a9f0f80919a7a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  startRange: 15
-  startTurnSpeed: 2
-  startFireRate: 0.2
-  bulletPrefab: {fileID: 6215277595392587746, guid: 0ef58146423044147a118e26b51b68e8,
-    type: 3}
-  useLaser: 0
-  startDamageOverTime: 20
-  startSlowAmount: 0.3
-  lineRenderer: {fileID: 0}
-  impactEffect: {fileID: 0}
-  impactLight: {fileID: 0}
+  startRange: 20
+  startTurnSpeed: 3
   partToRotate: {fileID: 360740205917755176}
   firePoint: {fileID: 8680624196816213937}
   helpFirePoint: {fileID: 1819425758876083632}
+  startFireRate: 0.2
+  bulletPrefab: {fileID: 6215277595392587746, guid: 0ef58146423044147a118e26b51b68e8,
+    type: 3}
 --- !u!1 &3670571947289163762
 GameObject:
   m_ObjectHideFlags: 0
