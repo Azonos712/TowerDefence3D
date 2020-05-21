@@ -8,10 +8,14 @@ public class BuildManager : MonoBehaviour
     public GameObject buildEffect;
     public GameObject sellEffect;
     public SelectUI platformUI;
-    public Shop shopUI;
 
     private TowerBlueprint towerToBuild;
     private Platform selectedPlatfrom;
+
+    public Component leftShop;
+    public TowerBlueprint standartTower;
+    public TowerBlueprint missileLauncher;
+    public TowerBlueprint laserBeamer;
 
     public bool CanBuild { get { return towerToBuild != null; } }
     public bool HasMoney { get { return PlayerStats.Money >= towerToBuild.cost; } }
@@ -38,7 +42,7 @@ public class BuildManager : MonoBehaviour
         selectedPlatfrom = platform;
         towerToBuild = null;
 
-        shopUI.SetBorder(-1);
+        SetBorder(-1);
         platformUI.SetTarget(platform);
     }
 
@@ -58,5 +62,36 @@ public class BuildManager : MonoBehaviour
     public TowerBlueprint GetTowerToBuild()
     {
         return towerToBuild;
+    }
+
+    public void SelectStandartTurret()
+    {
+        SetBorder(0);
+        SelectTowerToBuild(standartTower);
+    }
+
+    public void SelectMissileLauncher()
+    {
+        SetBorder(1);
+        SelectTowerToBuild(missileLauncher);
+    }
+
+    public void SelectLaserBeamer()
+    {
+        SetBorder(2);
+        SelectTowerToBuild(laserBeamer);
+    }
+
+    public void SetBorder(int index)
+    {
+        for (int i = 0; i < leftShop.transform.childCount; i++)
+        {
+            var child = leftShop.transform.transform.GetChild(i).gameObject;
+
+            if (i == index)
+                child.transform.GetChild(1).gameObject.SetActive(true);
+            else
+                child.transform.GetChild(1).gameObject.SetActive(false);
+        }
     }
 }

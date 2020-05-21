@@ -31,13 +31,13 @@ public class Tower : MonoBehaviour
     public Transform partToRotate;
     public Transform firePoint;
     public Transform helpFirePoint;
+    private Vector3 startHelpFirePoint;
 
     private Transform targetForShooting;
     private Enemy targetEnemy;
 
     private bool shotFired = false;
     private bool moveBack = true;
-    private Vector3 startHelpFirePoint;
 
     void Start()
     {
@@ -233,12 +233,5 @@ public class Tower : MonoBehaviour
             }
             helpFirePoint.Translate(Vector3.back * 1 * Time.deltaTime, Space.Self);
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        //Отображение дистанции башни в редакторе
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
     }
 }
