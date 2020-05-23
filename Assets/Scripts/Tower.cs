@@ -1,59 +1,33 @@
 ﻿using UnityEngine;
 
-public class Tower : MonoBehaviour
+public abstract class Tower : MonoBehaviour
 {
     [Header("General")]
     public float level = 1;
     public float startRange = 15f;
-    private float range { get { return startRange * level; } }
+    [HideInInspector]
+    public float range { get { return startRange * level; } }
     public float startTurnSpeed = 6f;
     private float turnSpeed { get { return startTurnSpeed * level; } }
-
-    [Header("Use Bullets (default)")]
-    public float startFireRate = 1f;
-    private float fireRate { get { return startFireRate * level; } } // выстрелов в 1 секунду
-    private float fireCountDown = 0f;
-    public GameObject bulletPrefab;
-
-    [Header("Use Laser")]
-    public bool useLaser = false;
-    public float startDamageOverTime = 20;
-    private float damageOverTime { get { return startDamageOverTime * level; } }
-    public float startSlowAmount = .3f;
-    private float slowAmount { get { return startSlowAmount * level; } }
-    public LineRenderer lineRenderer;
-    public ParticleSystem impactEffect;
-    public Light impactLight;
 
     [Header("Unity Setup Fields")]
     public Transform partToRotate;
     public Transform firePoint;
     public Transform helpFirePoint;
 
-    private Transform targetForShooting;
-    private Enemy targetEnemy;
+    protected Transform targetForShooting;
+    protected Enemy targetEnemy;
+    protected bool changeEnemy = false;
 
-    private bool shotFired = false;
-    private bool moveBack = true;
-    private Vector3 startHelpFirePoint;
-
-    void Start()
+    protected void Start()
     {
         //Запускаем метод с повторением в секунду сразу же при вызове Start()
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        InvokeRepeating("UpdateTarget", 0f, 0.6f);
         level = 1;
     }
 
-    void UpdateTarget()
+    protected void UpdateTarget()
     {
-        if (useLaser)
-        {
-            if (lineRenderer.enabled)
-            {
-                OffEffects();
-            }
-        }
-
         //Находим все объекты на карте под тегом
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         float shortestDistanse = Mathf.Infinity;
@@ -74,6 +48,7 @@ public class Tower : MonoBehaviour
         {
             targetForShooting = nearestEnemy.transform;
             targetEnemy = nearestEnemy.GetComponent<Enemy>();
+            changeEnemy = true;
         }
         else
         {
@@ -81,50 +56,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (shotFired)
-            RecoilAfterShoot();
-
-        fireCountDown -= Time.deltaTime;
-
-        //Если нет цели - не поворачиваемся и не стреляем
-        if (targetForShooting == null)
-        {
-            if (useLaser)
-            {
-                if (lineRenderer.enabled)
-                {
-                    OffEffects();
-                }
-            }
-
-            return;
-        }
-
-
-        if (ReadyToShoot())
-        {
-            if (useLaser)
-            {
-                Laser();
-            }
-            else
-            {
-                if (fireCountDown <= 0f)
-                {
-                    Shoot();
-                    InitializedBeforeRecoil();
-                    fireCountDown = 1f / fireRate;
-                }
-            }
-        }
-
-        LockOnTarget();
-    }
-
-    void LockOnTarget()
+    protected void LockOnTarget()
     {
         //Плавный поворот башни за захваченной целью
         //Вектор направления
@@ -138,41 +70,7 @@ public class Tower : MonoBehaviour
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 
-    void Laser()
-    {
-        targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
-        targetEnemy.Slow(slowAmount);
-
-        if (!lineRenderer.enabled)
-        {
-            OnEffects();
-        }
-
-        lineRenderer.SetPosition(0, firePoint.position);
-        lineRenderer.SetPosition(1, targetForShooting.position);
-
-        Vector3 dir = firePoint.position - targetForShooting.position;
-
-        //смещение и поворот эффекта
-        impactEffect.transform.position = targetForShooting.position + dir.normalized;
-        impactEffect.transform.rotation = Quaternion.LookRotation(dir);
-    }
-
-    void OnEffects()
-    {
-        lineRenderer.enabled = true;
-        impactEffect.Play();
-        impactLight.enabled = true;
-    }
-
-    void OffEffects()
-    {
-        lineRenderer.enabled = false;
-        impactEffect.Stop();
-        impactLight.enabled = false;
-    }
-
-    bool ReadyToShoot()
+    protected bool ReadyToShoot()
     {
         Vector3 dir1 = targetForShooting.position - firePoint.position;
         Vector3 dir2 = targetForShooting.position - helpFirePoint.position;
@@ -190,51 +88,5 @@ public class Tower : MonoBehaviour
         }
     }
 
-    void Shoot()
-    {
-        GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
-
-        if (bullet != null)
-            bullet.Seek(targetForShooting);
-    }
-
-    void InitializedBeforeRecoil()
-    {
-        shotFired = true;
-        moveBack = true;
-        startHelpFirePoint = helpFirePoint.localPosition;
-    }
-
-    void RecoilAfterShoot()
-    {
-        var dist = Vector3.Distance(startHelpFirePoint, helpFirePoint.localPosition);
-
-        if (moveBack == true)
-        {
-            if (dist >= 0.4)
-            {
-                moveBack = false;
-                return;
-            }
-            helpFirePoint.Translate(Vector3.forward * 4 * Time.deltaTime, Space.Self);
-        }
-        else
-        {
-            if (dist <= 0.1)
-            {
-                shotFired = false;
-                helpFirePoint.localPosition = startHelpFirePoint;
-                return;
-            }
-            helpFirePoint.Translate(Vector3.back * 1 * Time.deltaTime, Space.Self);
-        }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        //Отображение дистанции башни в редакторе
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
-    }
+    protected abstract void Shoot();
 }

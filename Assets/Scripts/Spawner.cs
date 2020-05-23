@@ -11,11 +11,32 @@ public class Spawner : MonoBehaviour
     public Transform spawnPoint;
     //Надпись отсчёта времени между волнами
     public Text nextWaveTimerText;
+    public GameManager gameManager;
 
     private float timeBetweenWaves = 3;
     //отсчёт для следующей волны
     private float countDown = 5;
     private int waveIndex = 0;
+
+    //создание массива с путевыми точками
+    public static Transform[] points;
+    public GameObject waypoints;
+
+    //в самом начале (данный метод вызывается перед Start) получаем все путевые точки и сохраняем их в массив
+    //по-сути кэшируем данные
+    private void Awake()
+    {
+        points = new Transform[waypoints.transform.childCount];
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = waypoints.transform.GetChild(i);
+        }
+    }
+
+    private void Start()
+    {
+        EnemiesAlive = 0;
+    }
 
     private void Update()
     {
@@ -26,7 +47,7 @@ public class Spawner : MonoBehaviour
 
         if (waveIndex == waves.Length)
         {
-            Debug.Log("Level won");
+            gameManager.WinLevel();
             this.enabled = false;
         }
 

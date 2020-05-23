@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 
     public static bool GameIsOver;
 
+    public GameObject completeLevelUI;
+    public AudioSource winAudio;
+
     void Start()
     {
         GameIsOver = false;
@@ -16,9 +19,14 @@ public class GameManager : MonoBehaviour
         if (GameIsOver)
             return;
 
-        if (Input.GetKey("e"))
+        if (Input.GetKey("e") && Input.GetKey(KeyCode.LeftControl))
         {
             EndGame();
+        }
+
+        if (Input.GetKey("w") && Input.GetKey(KeyCode.LeftControl))
+        {
+            WinLevel();
         }
 
         if (PlayerStats.Lives <= 0)
@@ -31,5 +39,12 @@ public class GameManager : MonoBehaviour
     {
         GameIsOver = true;
         gameOverUI.SetActive(true);
+    }
+
+    public void WinLevel()
+    {
+        winAudio.Play();
+        GameIsOver = true;
+        completeLevelUI.SetActive(true);
     }
 }

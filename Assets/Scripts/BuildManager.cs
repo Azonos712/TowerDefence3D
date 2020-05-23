@@ -10,7 +10,12 @@ public class BuildManager : MonoBehaviour
     public SelectUI platformUI;
 
     private TowerBlueprint towerToBuild;
-    private Platform selectedPlatfrom;
+    public Platform selectedPlatform;
+
+    public Component leftShop;
+    public TowerBlueprint standartTower;
+    public TowerBlueprint missileLauncher;
+    public TowerBlueprint laserBeamer;
 
     public bool CanBuild { get { return towerToBuild != null; } }
     public bool HasMoney { get { return PlayerStats.Money >= towerToBuild.cost; } }
@@ -28,34 +33,64 @@ public class BuildManager : MonoBehaviour
 
     public void SelectPlatform(Platform platform)
     {
-        if(selectedPlatfrom == platform)
+        if(selectedPlatform == platform)
         {
             DeselectNode();
             return;
         }
 
-        selectedPlatfrom = platform;
+        selectedPlatform = platform;
         towerToBuild = null;
 
+        SetBorder(-1);
         platformUI.SetTarget(platform);
     }
 
-
     public void DeselectNode()
     {
-        selectedPlatfrom = null;
-        platformUI.Hide();
+        selectedPlatform = null;
+        platformUI.SetShowStatus(false);
     }
 
     public void SelectTowerToBuild(TowerBlueprint tower)
     {
         towerToBuild = tower;
-
         DeselectNode();
     }
 
     public TowerBlueprint GetTowerToBuild()
     {
         return towerToBuild;
+    }
+
+    public void SelectStandartTurret()
+    {
+        SetBorder(0);
+        SelectTowerToBuild(standartTower);
+    }
+
+    public void SelectMissileLauncher()
+    {
+        SetBorder(1);
+        SelectTowerToBuild(missileLauncher);
+    }
+
+    public void SelectLaserBeamer()
+    {
+        SetBorder(2);
+        SelectTowerToBuild(laserBeamer);
+    }
+
+    public void SetBorder(int index)
+    {
+        for (int i = 0; i < leftShop.transform.childCount; i++)
+        {
+            var child = leftShop.transform.transform.GetChild(i).gameObject;
+
+            if (i == index)
+                child.transform.GetChild(1).gameObject.SetActive(true);
+            else
+                child.transform.GetChild(1).gameObject.SetActive(false);
+        }
     }
 }

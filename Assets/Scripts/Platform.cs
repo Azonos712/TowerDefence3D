@@ -15,12 +15,10 @@ public class Platform : MonoBehaviour
     private Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);
     private Renderer r;
     private Color startColor;
-    private BuildManager buildManager;
     private void Start()
     {
         r = GetComponent<Renderer>();
         startColor = r.material.color;
-        buildManager = BuildManager.instance;
     }
 
     public Vector3 GetBuildPosition()
@@ -37,14 +35,14 @@ public class Platform : MonoBehaviour
         //Проверка попытки построить башню там где она уже есть
         if (installedTower != null)
         {
-            buildManager.SelectPlatform(this);
+            BuildManager.instance.SelectPlatform(this);
             return;
         }
 
-        if (!buildManager.CanBuild)
+        if (!BuildManager.instance.CanBuild)
             return;
 
-        BuildTower(buildManager.GetTowerToBuild());
+        BuildTower(BuildManager.instance.GetTowerToBuild());
     }
 
     void BuildTower(TowerBlueprint blueprint)
@@ -63,23 +61,23 @@ public class Platform : MonoBehaviour
 
         towerBluePrint = blueprint;
 
-        GameObject effect = Instantiate(buildManager.buildEffect, this.GetBuildPosition(), Quaternion.identity);
+        GameObject effect = Instantiate(BuildManager.instance.buildEffect, this.GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 4f);
     }
 
     public void UpgradeTower()
     {
-        if (PlayerStats.Money < towerBluePrint.upgradeCost)
-        {
-            Debug.Log("Not enough money to upgrade!");
-            return;
-        }
+        //if (PlayerStats.Money < towerBluePrint.upgradeCost)
+        //{
+        //    Debug.Log("Not enough money to upgrade!");
+        //    return;
+        //}
 
         PlayerStats.Money -= (int)(towerBluePrint.upgradeCost * installedTower.GetComponent<Tower>().level);
 
         installedTower.GetComponent<Tower>().level += 0.1f;
 
-        GameObject effect = Instantiate(buildManager.buildEffect, this.GetBuildPosition(), Quaternion.identity);
+        GameObject effect = Instantiate(BuildManager.instance.buildEffect, this.GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 3f);
     }
 
@@ -87,7 +85,7 @@ public class Platform : MonoBehaviour
     {
         PlayerStats.Money += (int)(towerBluePrint.sellCost * installedTower.GetComponent<Tower>().level);
 
-        GameObject effect = Instantiate(buildManager.sellEffect, this.GetBuildPosition(), Quaternion.identity);
+        GameObject effect = Instantiate(BuildManager.instance.sellEffect, this.GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 4f);
 
         Destroy(installedTower);
@@ -100,10 +98,10 @@ public class Platform : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (!buildManager.CanBuild)
+        if (!BuildManager.instance.CanBuild)
             return;
         //TODO: при наведении на платформу с башней
-        if (buildManager.HasMoney)
+        if (BuildManager.instance.HasMoney)
             r.material.color = emissionColor;
         else
             r.material.color = notEnoughMoneyColor;

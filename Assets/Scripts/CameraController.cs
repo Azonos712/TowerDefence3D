@@ -7,15 +7,22 @@ public class CameraController : MonoBehaviour
     public float scrollSpeed = 5f;
     public float borderOffset = 10f;
 
-    private float minY = 10f;
-    private float maxY = 85f;
-
+    Vector3 startPosition;
+    private void Start()
+    {
+        startPosition = transform.position;
+    }
     void Update()
     {
         if (GameManager.GameIsOver)
         {
             this.enabled = false;
             return;
+        }
+
+        if (Input.GetKey("r"))
+        {
+            transform.position = startPosition;
         }
 
         if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - borderOffset)
@@ -41,7 +48,9 @@ public class CameraController : MonoBehaviour
         //Расчитываем изменения высоты при помощи скорости и фактора
         currentPosition.y -= scroll * 1000 * scrollSpeed * Time.deltaTime;
         //Ограничиваем значения y
-        currentPosition.y = Mathf.Clamp(currentPosition.y, minY, maxY);
+        currentPosition.y = Mathf.Clamp(currentPosition.y, 10f, 85f);
+        currentPosition.z = Mathf.Clamp(currentPosition.z, -110f, -10f);
+        currentPosition.x = Mathf.Clamp(currentPosition.x, 10f, 90f);
         //Применяем высоту
         transform.position = currentPosition;
     }
